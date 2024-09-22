@@ -1,0 +1,58 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+using System.Collections.Generic;
+
+namespace QuranParser
+{
+    // Main parser class that handles reading and parsing the Quran XML
+    public class QuranXmlParser
+    {
+        public async Task<List<Sura>> ParseQuranXmlAsync()
+        {
+            // Open the Quran XML file from Resources\Raw
+            using var stream = await FileSystem.OpenAppPackageFileAsync("Quran-simple.xml");
+
+            // Read the stream content
+            using var reader = new StreamReader(stream);
+            string xmlContent = await reader.ReadToEndAsync();
+
+            // Load the XML content into an XDocument
+            XDocument xdoc = XDocument.Parse(xmlContent);
+
+            // Initialize a list to hold all surahs
+            List<Sura> suras = new List<Sura>();
+
+            // Parse all Surah elements
+            var suraElements = xdoc.Descendants("sura");
+            foreach (var suraElement in suraElements)
+            {
+                // Create a Sura object
+                var sura = new Sura
+                {
+                    Index = int.Parse(suraElement.Attribute("index")?.Value),
+                    Name = suraElement.Attribute("name")?.Value
+                };
+
+                // Parse Ayas and add them to the Sura
+                var ayas = suraElement.Descendants("aya");
+                foreach (var ayaElement in ayas)
+                {
+                    var aya = new Aya
+                    {
+                        Index = int.Parse(ayaElement.Attribute("index")?.Value),
+                        Text = ayaElement.Attribute("text")?.Value
+                    };
+                    sura.Ayas.Add(aya);
+                }
+
+                // Add the Sura to the list of Surahs
+                suras.Add(sura);
+            }
+
+            return suras;
+        }
+    }
+}
