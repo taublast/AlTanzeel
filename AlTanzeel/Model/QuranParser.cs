@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace QuranParser
 {
     // Main parser class that handles reading and parsing the Quran XML
     public class QuranXmlParser
     {
-        public async Task<List<Sura>> ParseQuranXmlAsync()
+        public async Task<Collection<Sura>> ParseQuranXmlAsync()
         {
             // Open the Quran XML file from Resources\Raw
             using var stream = await FileSystem.OpenAppPackageFileAsync("Quran-simple.xml");
@@ -23,7 +24,7 @@ namespace QuranParser
             XDocument xdoc = XDocument.Parse(xmlContent);
 
             // Initialize a list to hold all surahs
-            List<Sura> suras = new List<Sura>();
+            Collection<Sura> suras = new();
 
             // Parse all Surah elements
             var suraElements = xdoc.Descendants("sura");

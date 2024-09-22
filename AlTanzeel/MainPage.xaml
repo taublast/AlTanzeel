@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AlTanzeel.MainPage">
+             x:Class="AlTanzeel.MainPage"
+             xmlns:viewmodel="clr-namespace:AlTanzeel.ViewModel"
+             x:DataType="viewmodel:MainViewModel">
 
     <Grid RowDefinitions="Auto, Auto, Auto, Auto" Padding="10" RowSpacing="10">
 
@@ -17,6 +19,7 @@
                 <DatePicker x:Name="QuizDatePicker"
                         DateSelected="QuizDatePicker_DateSelected"
                         Format="MMMM dd, yyyy"
+                        Date="{Binding Date}"
                         Grid.Column="1"
                         VerticalOptions="Center" />
 
@@ -25,15 +28,12 @@
 
         <!-- Frame for Surah display -->
         <Frame Grid.Row="1">
-            <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="*">
+            <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*">
                 <!-- The first label is in row 0 -->
                 <Label Text="Selected Surah" Grid.Row="0" />
 
                 <!-- The second label is now in row 1 -->
-                <Label Text="1. الفاتحة" Grid.Row="1" HorizontalTextAlignment="End"/>
-
-                <!-- The third label is now in row 2 -->
-                <Label Text="1. Al-Fatihah" Grid.Row="2" />
+                <Label Text="{Binding SelectedSura.SurahInfo}" Grid.Row="1" HorizontalTextAlignment="End"/>
             </Grid>
         </Frame>
 
