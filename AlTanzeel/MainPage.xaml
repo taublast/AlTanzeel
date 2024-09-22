@@ -3,22 +3,72 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AlTanzeel.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Padding="16,0"
-            Spacing="25">
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto" Padding="10" RowSpacing="10">
 
-            <Frame>
-                <Grid ColumnDefinitions="*, Auto">
-                    <Label Text="Quiz Date" Grid.Column="0" />
+        <!-- Define the Grid for Label and DatePicker -->
+        <Frame Padding="10" BorderColor="Black">
+            <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto">
 
-                    <DatePicker x:Name="QuizDatePicker2"
-                Format="MMMM dd, yyyy"
-                Grid.Column="1" />
-                </Grid>
-            </Frame>
+                <!-- Ensure both Label and DatePicker have the same vertical alignment -->
+                <Label Text="Quiz Date" 
+                   Grid.Column="0"
+                   VerticalOptions="Center" />
 
-        </VerticalStackLayout>
-    </ScrollView>
+                <DatePicker x:Name="QuizDatePicker"
+                        DateSelected="QuizDatePicker_DateSelected"
+                        Format="MMMM dd, yyyy"
+                        Grid.Column="1"
+                        VerticalOptions="Center" />
 
+            </Grid>
+        </Frame>
+
+        <!-- Frame for Surah display -->
+        <Frame Grid.Row="1">
+            <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="*">
+                <!-- The first label is in row 0 -->
+                <Label Text="Selected Surah" Grid.Row="0" />
+
+                <!-- The second label is now in row 1 -->
+                <Label Text="1. الفاتحة" Grid.Row="1" HorizontalTextAlignment="End"/>
+
+                <!-- The third label is now in row 2 -->
+                <Label Text="1. Al-Fatihah" Grid.Row="2" />
+            </Grid>
+        </Frame>
+
+        <!-- Frame to select verses for translation -->
+        <Frame Grid.Row="2">
+            <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="*" RowSpacing="10">
+                <!-- The first label is in row 0 -->
+                <Label Text="Select verses for translation" Grid.Row="0" />
+
+                <!-- The second label is now in row 1 -->
+                <BoxView HeightRequest="2" Color="Gray" HorizontalOptions="FillAndExpand" Grid.Row="1"/>
+
+
+                <!-- The third label is now in row 2 -->
+                <Label Text="Tap on the row to select verses." Grid.Row="2" />
+            </Grid>
+        </Frame>
+        
+        
+
+        <!-- Frame to select words meanings -->
+        <Frame Grid.Row="3">
+            <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="*" RowSpacing="10">
+                <!-- The first label is in row 0 -->
+                <Label Text="Select words meaning." Grid.Row="0" />
+
+                <!-- The second label is now in row 1 -->
+                <BoxView HeightRequest="2" Color="Gray" HorizontalOptions="FillAndExpand" Grid.Row="1"/>
+
+
+                <!-- The third label is now in row 2 -->
+                <Label Text="Tap on the row to select words for words meanings." Grid.Row="2" />
+            </Grid>
+        </Frame>
+        
+        
+    </Grid>
 </ContentPage>

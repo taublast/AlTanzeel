@@ -27,5 +27,10 @@ namespace AlTanzeel
                 Console.WriteLine($"Sura: {sura.Name} (Index: {sura.Index})");
             }
         }
+
+        private void QuizDatePicker_DateSelected(object sender, DateChangedEventArgs e)
+        {
+
+        }
     }
 }
