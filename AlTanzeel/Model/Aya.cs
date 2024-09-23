@@ -7,8 +7,8 @@ namespace QuranParser
         public string Text { get; set; }
     }
 
-    // Class to represent a Sura (chapter) with a list of Ayas (verses)
-    public class Sura
+    // Class to represent a Surah (chapter) with a list of Ayas (verses)
+    public class Surah
     {
         public int Index { get; set; }
         public string Name { get; set; }

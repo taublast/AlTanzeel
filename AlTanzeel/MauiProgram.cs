@@ -20,6 +20,7 @@ namespace AlTanzeel
     		builder.Logging.AddDebug();
 #endif
             builder.Services.AddSingleton<MainPage>();
+            builder.Services.AddSingleton<SelectSurahPage>();
             builder.Services.AddSingleton<MainViewModel>();
             return builder.Build();
         }

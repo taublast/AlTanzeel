@@ -11,10 +11,5 @@ namespace AlTanzeel
             InitializeComponent();
             BindingContext = vm;
         }
-
-        private void QuizDatePicker_DateSelected(object sender, DateChangedEventArgs e)
-        {
-
-        }
     }
 }

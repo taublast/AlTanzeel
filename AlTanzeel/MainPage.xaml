@@ -17,7 +17,6 @@
                    VerticalOptions="Center" />
 
                 <DatePicker x:Name="QuizDatePicker"
-                        DateSelected="QuizDatePicker_DateSelected"
                         Format="MMMM dd, yyyy"
                         Date="{Binding Date}"
                         Grid.Column="1"
@@ -28,6 +27,9 @@
 
         <!-- Frame for Surah display -->
         <Frame Grid.Row="1">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigateToSelectSuraPageCommand}"/>
+            </Frame.GestureRecognizers>
             <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*">
                 <!-- The first label is in row 0 -->
                 <Label Text="Selected Surah" Grid.Row="0" />
