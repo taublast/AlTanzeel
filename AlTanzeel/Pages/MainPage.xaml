@@ -41,6 +41,9 @@
 
         <!-- Frame to select verses for translation -->
         <Frame Grid.Row="2">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigateToSelectTranslationVersesPageCommand}"/>
+            </Frame.GestureRecognizers>
             <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="*" RowSpacing="10">
                 <!-- The first label is in row 0 -->
                 <Label Text="Select verses for translation" Grid.Row="0" />

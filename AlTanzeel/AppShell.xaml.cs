@@ -1,4 +1,6 @@
-﻿namespace AlTanzeel
+﻿using AlTanzeel.Pages;
+
+namespace AlTanzeel
 {
     public partial class AppShell : Shell
     {
@@ -6,6 +8,8 @@
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(SelectSurahPage), typeof(SelectSurahPage));
+            Routing.RegisterRoute(nameof(SelectTranslationVersesPage), typeof(SelectTranslationVersesPage));
+            Routing.RegisterRoute(nameof(VersesForSelectedSurahPage), typeof(VersesForSelectedSurahPage));
         }
     }
 }

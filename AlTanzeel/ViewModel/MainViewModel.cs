@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AlTanzeel.Pages;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using QuranParser;
 using System.Collections.ObjectModel;
@@ -45,12 +46,25 @@ namespace AlTanzeel.ViewModel
         }
 
         [RelayCommand]
+        async Task NavigateToSelectTranslationVersesPage()
+        {
+            await AppShell.Current.GoToAsync($"{nameof(SelectTranslationVersesPage)}");
+        }
+
+        [RelayCommand]
+        async Task NavigateToSelectVersesForTranslationPage()
+        {
+            await AppShell.Current.GoToAsync($"{nameof(VersesForSelectedSurahPage)}");
+        }
+
+        [RelayCommand]
         async void SelectSurah(Surah surah)
         {
             this.SelectedSura = surah;
             await Shell.Current.GoToAsync("..");
 
         }
+
         partial void OnSearchQueryChanged(string value)
         {
             FilterSurahs();

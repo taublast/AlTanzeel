@@ -1,4 +1,5 @@
-﻿using AlTanzeel.ViewModel;
+﻿using AlTanzeel.Pages;
+using AlTanzeel.ViewModel;
 using Microsoft.Extensions.Logging;
 
 namespace AlTanzeel
@@ -22,6 +23,8 @@ namespace AlTanzeel
             builder.Services.AddSingleton<MainPage>();
             builder.Services.AddSingleton<SelectSurahPage>();
             builder.Services.AddSingleton<MainViewModel>();
+            builder.Services.AddSingleton<SelectTranslationVersesPage>();
+            builder.Services.AddSingleton<VersesForSelectedSurahPage>();
             return builder.Build();
         }
     }
