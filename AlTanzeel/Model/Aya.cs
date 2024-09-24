@@ -5,6 +5,9 @@ namespace QuranParser
     {
         public int Index { get; set; }
         public string Text { get; set; }
+
+        // Computed property that returns Surah name and Index
+        public string AyaWithIndex => $"{Index}. {Text}";
     }
 
     // Class to represent a Surah (chapter) with a list of Ayas (verses)

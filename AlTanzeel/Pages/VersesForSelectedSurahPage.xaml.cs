@@ -8,5 +8,6 @@ public partial class VersesForSelectedSurahPage : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = vm;
+		this.Title = $"Verses For {vm.SelectedSura.Name}";
 	}
 }
