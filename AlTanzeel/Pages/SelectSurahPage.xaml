@@ -31,6 +31,7 @@
                         </Frame.GestureRecognizers>
                         <Label Text="{Binding SurahInfo}" 
                                FontSize="24"
+                               FontFamily="PDMS-Saleem"
                                HorizontalOptions="End"
                                VerticalOptions="Center"/>
                     </Frame>

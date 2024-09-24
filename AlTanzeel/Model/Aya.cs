@@ -5,6 +5,7 @@ namespace QuranParser
     {
         public int Index { get; set; }
         public string Text { get; set; }
+        public string Bismillah { get; set; }
 
         // Computed property that returns Surah name and Index
         public string AyaWithIndex => $"{Index}. {Text}";

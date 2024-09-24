@@ -6,8 +6,13 @@
              x:DataType="viewmodel:MainViewModel"
              xmlns:model="clr-namespace:QuranParser"
              Title="">
-    <Grid RowDefinitions="*">
-        <CollectionView 
+    <Grid RowDefinitions="Auto, *">
+        <!-- Add SearchBar for filtering -->
+        <SearchBar Grid.Row="0"
+                   Placeholder="Search Aya..." 
+                   Text="{Binding SearchQuery}"
+                   x:Name="searchBar"/>
+        <CollectionView Grid.Row="1"
             ItemsSource="{Binding SelectedSura.Ayas}" 
             SelectionMode="Multiple"
             >
@@ -21,9 +26,12 @@
                                 />
                         </Frame.GestureRecognizers> -->
                         <Label Text="{Binding AyaWithIndex}" 
-                               FontSize="24"
-                               HorizontalOptions="End"
-                               VerticalOptions="End"/>
+                               FontSize="32"
+                               LineBreakMode="WordWrap"
+                               HorizontalOptions="EndAndExpand"
+                               HorizontalTextAlignment="End"
+                               TextTransform="None"
+                               FontFamily="PDMS-Saleem"/>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

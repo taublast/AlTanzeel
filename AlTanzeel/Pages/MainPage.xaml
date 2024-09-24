@@ -35,7 +35,12 @@
                 <Label Text="Selected Surah" Grid.Row="0" />
 
                 <!-- The second label is now in row 1 -->
-                <Label Text="{Binding SelectedSura.SurahInfo}" Grid.Row="1" HorizontalTextAlignment="End"/>
+                <Label 
+                    Text="{Binding SelectedSura.SurahInfo}" 
+                    Grid.Row="1" 
+                    HorizontalTextAlignment="End" 
+                    FontSize="24" 
+                    FontFamily="PDMS-Saleem"/>
             </Grid>
         </Frame>
 
