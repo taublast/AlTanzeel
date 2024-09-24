@@ -13,7 +13,8 @@
                    Text="{Binding SearchQuery}"
                    x:Name="searchBar"/>
         <CollectionView Grid.Row="1"
-            ItemsSource="{Binding SelectedSura.Ayas}" 
+            ItemsSource="{Binding FilteredAyasOfSelectedSurah}"
+            Scrolled="CollectionView_Scrolled"
             SelectionMode="Multiple"
             >
             <CollectionView.ItemTemplate>

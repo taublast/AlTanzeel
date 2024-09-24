@@ -9,25 +9,37 @@ namespace AlTanzeel.ViewModel
     public partial class MainViewModel : ObservableObject
     {
         [ObservableProperty]
-        ObservableCollection<Surah> suras;
-
-        [ObservableProperty]
         DateTime date;
 
         [ObservableProperty]
-        Surah selectedSura;
+        SearchQueryType searchQueryMode;
 
         [ObservableProperty]
         string searchQuery;
 
         [ObservableProperty]
+        ObservableCollection<Surah> suras;
+
+        [ObservableProperty]
         ObservableCollection<Surah> filteredSuras;
+
+        [ObservableProperty]
+        Surah selectedSura;
+
+        [ObservableProperty]
+        ObservableCollection<Aya> ayasOfSelectedSurah;
+
+        [ObservableProperty]
+        ObservableCollection<Aya> filteredAyasOfSelectedSurah;
 
         public MainViewModel()
         {
+            SearchQueryMode = SearchQueryType.Surah;
             Date = DateTime.Now;
             LoadAndDisplayQuranAsync();
             SearchQuery = string.Empty;
+            AyasOfSelectedSurah = new ObservableCollection<Aya>();
+            FilteredAyasOfSelectedSurah = new ObservableCollection<Aya>();
         }
 
         private async void LoadAndDisplayQuranAsync()
@@ -37,11 +49,14 @@ namespace AlTanzeel.ViewModel
             Suras = new ObservableCollection<Surah>(surasList);
             FilteredSuras = new ObservableCollection<Surah>(surasList);
             SelectedSura = Suras.FirstOrDefault();
+            AyasOfSelectedSurah = new ObservableCollection<Aya>(SelectedSura.Ayas);
+            FilteredAyasOfSelectedSurah = new ObservableCollection<Aya>(SelectedSura.Ayas);
         }
 
         [RelayCommand]
         async Task NavigateToSelectSuraPage()
         {
+            this.SearchQueryMode = SearchQueryType.Surah;
             await AppShell.Current.GoToAsync($"{nameof(SelectSurahPage)}");
         }
 
@@ -54,6 +69,7 @@ namespace AlTanzeel.ViewModel
         [RelayCommand]
         async Task NavigateToSelectVersesForTranslationPage()
         {
+            this.SearchQueryMode = SearchQueryType.Aya;
             await AppShell.Current.GoToAsync($"{nameof(VersesForSelectedSurahPage)}");
         }
 
@@ -61,15 +77,36 @@ namespace AlTanzeel.ViewModel
         async void SelectSurah(Surah surah)
         {
             this.SelectedSura = surah;
+            this.SearchQuery = string.Empty;
+            AyasOfSelectedSurah = new ObservableCollection<Aya>(SelectedSura.Ayas);
+            FilteredAyasOfSelectedSurah = new ObservableCollection<Aya>(SelectedSura.Ayas);
             await Shell.Current.GoToAsync("..");
 
         }
 
         partial void OnSearchQueryChanged(string value)
         {
-            FilterSurahs();
+            if (SearchQueryMode == SearchQueryType.Surah)
+            {
+                FilterSurahs();
+            }
+            else if(SearchQueryMode == SearchQueryType.Aya)
+            {
+                FilterAyas();
+            }
         }
-
+        private void FilterAyas()
+        {
+            if(string.IsNullOrWhiteSpace(SearchQuery))
+            {
+                FilteredAyasOfSelectedSurah = new ObservableCollection<Aya>(SelectedSura.Ayas);
+            }
+            else
+            {
+                var filtered = SelectedSura.Ayas.Where(a => a.AyaWithIndex.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
+                FilteredAyasOfSelectedSurah = new ObservableCollection<Aya>(filtered);
+            }
+        }
         private void FilterSurahs()
         {
             if (string.IsNullOrWhiteSpace(SearchQuery))

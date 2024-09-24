@@ -21,4 +21,10 @@ namespace QuranParser
         // Computed property that returns Surah name and Index
         public string SurahInfo => $"{Index}. {Name}";
     }
+
+    public enum SearchQueryType
+    {
+        Surah,
+        Aya
+    }
 }
