@@ -1,5 +1,5 @@
 using AlTanzeel.ViewModel;
-
+using QuranParser;
 namespace AlTanzeel.Pages;
 
 public partial class VersesForSelectedSurahPage : ContentPage
@@ -13,10 +13,6 @@ public partial class VersesForSelectedSurahPage : ContentPage
 
     private void CollectionView_Scrolled(object sender, ItemsViewScrolledEventArgs e)
     {
-        if(sender is SearchBar)
-        {
-            return;
-        }
         searchBar.Unfocus();
     }
 

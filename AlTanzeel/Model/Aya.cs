@@ -1,11 +1,21 @@
+using CommunityToolkit.Mvvm.ComponentModel;
+
 namespace QuranParser
 {
     // Class to represent a single Aya (verse)
-    public class Aya
+    public partial class Aya : ObservableObject
     {
+        public Aya()
+        {
+            this.IsSelected = false;
+        }
         public int Index { get; set; }
         public string Text { get; set; }
         public string Bismillah { get; set; }
+
+        // Property to hold whether the Aya is selected
+        [ObservableProperty]
+        private bool isSelected;
 
         // Computed property that returns Surah name and Index
         public string AyaWithIndex => $"{Index}. {Text}";

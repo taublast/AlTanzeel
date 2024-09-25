@@ -5,7 +5,14 @@
              xmlns:viewmodel="clr-namespace:AlTanzeel.ViewModel"
              x:DataType="viewmodel:MainViewModel"
              xmlns:model="clr-namespace:QuranParser"
+             xmlns:local="clr-namespace:AlTanzeel.Converters"
              Title="">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:BoolToSelectionConverter x:Key="BoolToSelectionConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <Grid RowDefinitions="Auto, *">
         <!-- Add SearchBar for filtering -->
         <SearchBar Grid.Row="0"
@@ -20,19 +27,27 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Aya">
                     <Frame Padding="10" Margin="5">
-                        <!-- <Frame.GestureRecognizers>
+                        <Frame.GestureRecognizers>
                             <TapGestureRecognizer 
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=SelectSurahCommand}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=SelectAyaCommand}"        
                                 CommandParameter="{Binding .}"
-                                />
-                        </Frame.GestureRecognizers> -->
-                        <Label Text="{Binding AyaWithIndex}" 
-                               FontSize="32"
-                               LineBreakMode="WordWrap"
-                               HorizontalOptions="EndAndExpand"
-                               HorizontalTextAlignment="End"
-                               TextTransform="None"
-                               FontFamily="PDMS-Saleem"/>
+                             />
+                        </Frame.GestureRecognizers>
+                        <Grid ColumnDefinitions="0.20*, *"
+                              Padding="10,0,10,0">
+                            <Label Text="{Binding IsSelected, Converter={StaticResource BoolToSelectionConverter}}"
+                                   FontSize="32"
+                                   VerticalOptions="Center"/>
+                            <!-- Aya text -->
+                            <Label Grid.Column="1"
+                                   Text="{Binding AyaWithIndex}" 
+                                   FontSize="32"
+                                   LineBreakMode="WordWrap"
+                                   HorizontalOptions="EndAndExpand"
+                                   HorizontalTextAlignment="End"
+                                   TextTransform="None"
+                                   FontFamily="PDMS-Saleem"/>
+                        </Grid>
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

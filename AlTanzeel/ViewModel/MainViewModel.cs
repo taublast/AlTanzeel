@@ -32,14 +32,21 @@ namespace AlTanzeel.ViewModel
         [ObservableProperty]
         ObservableCollection<Aya> filteredAyasOfSelectedSurah;
 
+        [ObservableProperty]
+        ObservableCollection<Aya> selectedAyas;
+
         public MainViewModel()
         {
+            Suras = [];
+            FilteredSuras = [];
+            SelectedSura = new();
             SearchQueryMode = SearchQueryType.Surah;
             Date = DateTime.Now;
             LoadAndDisplayQuranAsync();
             SearchQuery = string.Empty;
-            AyasOfSelectedSurah = new ObservableCollection<Aya>();
-            FilteredAyasOfSelectedSurah = new ObservableCollection<Aya>();
+            AyasOfSelectedSurah = [];
+            FilteredAyasOfSelectedSurah = [];
+            SelectedAyas = [];
         }
 
         private async void LoadAndDisplayQuranAsync()
@@ -48,9 +55,31 @@ namespace AlTanzeel.ViewModel
             var surasList = await parser.ParseQuranXmlAsync();
             Suras = new ObservableCollection<Surah>(surasList);
             FilteredSuras = new ObservableCollection<Surah>(surasList);
+#pragma warning disable CS8601 // Possible null reference assignment.
             SelectedSura = Suras.FirstOrDefault();
+#pragma warning restore CS8601 // Possible null reference assignment.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             AyasOfSelectedSurah = new ObservableCollection<Aya>(SelectedSura.Ayas);
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             FilteredAyasOfSelectedSurah = new ObservableCollection<Aya>(SelectedSura.Ayas);
+        }
+
+        [RelayCommand]
+        public void SelectAya(Aya aya)
+        {
+            // Toggle the IsSelected property of the Aya
+            aya.IsSelected = !aya.IsSelected;
+
+            // Update the list of selected Ayas
+            if (aya.IsSelected)
+            {
+                if (!SelectedAyas.Contains(aya))
+                    SelectedAyas.Add(aya);
+            }
+            else
+            {
+                _ = SelectedAyas.Remove(aya);
+            }
         }
 
         [RelayCommand]
@@ -74,7 +103,7 @@ namespace AlTanzeel.ViewModel
         }
 
         [RelayCommand]
-        async void SelectSurah(Surah surah)
+        async Task SelectSurah(Surah surah)
         {
             this.SelectedSura = surah;
             this.SearchQuery = string.Empty;
