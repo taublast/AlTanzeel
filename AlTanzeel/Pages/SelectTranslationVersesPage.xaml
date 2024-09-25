@@ -7,15 +7,37 @@
              xmlns:model="clr-namespace:QuranParser"
              Title="Select Verses">
     <Grid RowDefinitions="Auto, *" Padding="10">
-        <Frame>
+        <Frame Margin="0,0,0, 40">
             <Frame.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding NavigateToSelectVersesForTranslationPageCommand}"/>
             </Frame.GestureRecognizers>
-            <Label Text="Please tap on the row to select verses." Grid.Row="0" />
+            <Label 
+                x:Name="selectVersesLabel"
+                Grid.Row="0"/>
         </Frame>
-
-        <CollectionView IsVisible="False">
-            
+        <CollectionView 
+            Grid.Row="1"
+            ItemsSource="{Binding SelectedAyas}"
+            SelectionMode="None"
+            >
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Aya">
+                    <Frame Padding="10" Margin="5">
+                        <Grid ColumnDefinitions="0.20*, *"
+                              Padding="10,0,10,0">
+                            <!-- Aya text -->
+                            <Label Grid.Column="1"
+                                   Text="{Binding Text}" 
+                                   FontSize="32"
+                                   LineBreakMode="WordWrap"
+                                   HorizontalOptions="EndAndExpand"
+                                   HorizontalTextAlignment="End"
+                                   TextTransform="None"
+                                   FontFamily="PDMS-Saleem"/>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
         </CollectionView>
     </Grid>
 </ContentPage>

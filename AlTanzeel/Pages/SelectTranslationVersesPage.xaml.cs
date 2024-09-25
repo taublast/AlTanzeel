@@ -8,5 +8,14 @@ public partial class SelectTranslationVersesPage : ContentPage
 	{
 		InitializeComponent();
 		BindingContext = vm;
-	}
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is MainViewModel vm)
+        {
+            selectVersesLabel.Text = vm.SelectedAyas.Count > 0 ? "Tap here to select more verses." : "Please tap here to select verses.";
+        }
+    }
 }
