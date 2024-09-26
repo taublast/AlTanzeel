@@ -15,7 +15,21 @@ public partial class VersesForSelectedSurahPage : ContentPage
     {
         searchBar.Unfocus();
     }
-
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        if(BindingContext is MainViewModel vm)
+        {
+            if (vm.TranslationVersesDataSetType == TranslationVersesDataSetType.Verse)
+            {
+                collectionView.ItemsSource = vm.FilteredAyasOfSelectedSurahForTranslation;
+            }
+            else
+            {
+                collectionView.ItemsSource = vm.FilteredAyasOfSelectedSurahForWordsMeaning;
+            }
+        }
+    }
     protected override void OnDisappearing()
     {
         base.OnDisappearing();

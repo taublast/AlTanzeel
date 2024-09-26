@@ -20,4 +20,21 @@ namespace AlTanzeel.Converters // Make sure this matches your project's structur
             throw new NotImplementedException();
         }
     }
+
+    public class BoolToChipSelectionConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value is bool isSelected)
+            {
+                return isSelected ? Colors.GreenYellow : Colors.Wheat; // Change the colors as you like
+            }
+            return Colors.Gray;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

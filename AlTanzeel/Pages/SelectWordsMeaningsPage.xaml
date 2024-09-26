@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AlTanzeel.Pages.SelectWordsMeaningsPage"
+             xmlns:viewmodel="clr-namespace:AlTanzeel.ViewModel"
+             x:DataType="viewmodel:MainViewModel"
+             xmlns:model="clr-namespace:QuranParser"
+             xmlns:local="clr-namespace:AlTanzeel.Converters"
+             Title="SelectWordsMeaningsPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:BoolToChipSelectionConverter x:Key="BoolToChipSelectionConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="Auto, *" Padding="10">
+        <Frame Margin="0,0,0, 40">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigateToSelectVersesCommand}"/>
+            </Frame.GestureRecognizers>
+            <Label 
+            x:Name="selectVersesLabel"
+            Grid.Row="0"/>
+        </Frame>
+        <!-- Scrollable chips section -->
+        <CollectionView Grid.Row="1"
+                        FlowDirection="RightToLeft"
+                        ItemsSource="{Binding WordsForWordsMeaning}"
+                        SelectionMode="None">
+            <CollectionView.Header>
+                <Label FlowDirection="LeftToRight" x:Name="collectionViewHeaderText" />
+            </CollectionView.Header>
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="3"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:WordForWordsMeaning">
+                    <Frame Padding="5" 
+                           Margin="5"
+                           BackgroundColor="{Binding IsSelected, Converter={StaticResource BoolToChipSelectionConverter}}" 
+                           BorderColor="Black"
+                           CornerRadius="10"
+                           HasShadow="False">
+
+                        <!-- Chip Tap Gesture -->
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer 
+                                Tapped="TapGestureRecognizer_Tapped"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=SelectWordCommand}" 
+                                CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                        <!-- Chip text -->
+                        <Label Text="{Binding Word}"
+                               FontSize="28"
+                               TextColor="Black"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"
+                               TextTransform="None"
+                               FontAttributes="Bold"
+                               FontFamily="PDMS-Saleem"
+                               />
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

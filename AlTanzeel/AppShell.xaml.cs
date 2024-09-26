@@ -10,6 +10,7 @@ namespace AlTanzeel
             Routing.RegisterRoute(nameof(SelectSurahPage), typeof(SelectSurahPage));
             Routing.RegisterRoute(nameof(SelectTranslationVersesPage), typeof(SelectTranslationVersesPage));
             Routing.RegisterRoute(nameof(VersesForSelectedSurahPage), typeof(VersesForSelectedSurahPage));
+            Routing.RegisterRoute(nameof(SelectWordsMeaningsPage), typeof(SelectWordsMeaningsPage));
         }
     }
 }

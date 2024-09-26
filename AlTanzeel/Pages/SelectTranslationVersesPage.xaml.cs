@@ -4,10 +4,10 @@ namespace AlTanzeel.Pages;
 
 public partial class SelectTranslationVersesPage : ContentPage
 {
-	public SelectTranslationVersesPage(MainViewModel vm)
-	{
-		InitializeComponent();
-		BindingContext = vm;
+    public SelectTranslationVersesPage(MainViewModel vm)
+    {
+        InitializeComponent();
+        BindingContext = vm;
     }
 
     protected override void OnAppearing()
@@ -15,7 +15,16 @@ public partial class SelectTranslationVersesPage : ContentPage
         base.OnAppearing();
         if (BindingContext is MainViewModel vm)
         {
-            selectVersesLabel.Text = vm.SelectedAyas.Count > 0 ? "Tap here to select more verses." : "Please tap here to select verses.";
+            selectVersesLabel.Text = vm.SelectedAyasForTranslation.Count > 0 ? "Tap here to select more verses." : "Please tap here to select verses.";
+            if (vm.SelectedAyasForTranslation.Count > 0)
+            {
+                string word = vm.SelectedAyasForTranslation.Count > 1 ? "Ayas" : "Aya";
+                collectionViewHeaderText.Text = $"You selected {vm.SelectedAyasForTranslation.Count} {word}";
+            }
+            else
+            {
+                collectionViewHeaderText.Text = string.Empty;
+            }
         }
     }
 }
