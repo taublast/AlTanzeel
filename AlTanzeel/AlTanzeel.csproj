@@ -60,6 +60,7 @@
   <ItemGroup>
     <None Remove="Platforms\Android\xml\file_paths.xml" />
     <None Remove="Resources\Pdf\arial.ttf" />
+    <None Remove="Resources\Pdf\pdms-saleem-quranfont.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -92,7 +93,7 @@
   <ItemGroup>
     <None Remove="Resources\Pdf\AdventureCycle.txt" />
     <None Remove="Resources\Pdf\AdventureWork.png" />
-    <None Remove="Resources\Pdf\arial.ttf" />
+    <None Remove="Resources\Pdf\*.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -102,11 +103,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\Pdf\AdventureCycle.txt" />
     <EmbeddedResource Include="Resources\Pdf\AdventureWork.png" />
-    <EmbeddedResource Include="Resources\Pdf\arial.ttf" />
+    <EmbeddedResource Include="Resources\Pdf\*.ttf" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <MauiFont Include="Resources\Pdf\pdms-saleem-quranfont.ttf" />
   </ItemGroup>
 
 

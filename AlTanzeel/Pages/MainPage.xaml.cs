@@ -51,7 +51,7 @@ public partial class MainPage
         //Get the font file stream from assembly. 
         Assembly assembly = typeof(MainPage).GetTypeInfo().Assembly;
         string basePath = "AlTanzeel.Resources.Pdf.";
-        Stream fontStream = assembly.GetManifestResourceStream(basePath + "arial.ttf");
+        Stream fontStream = assembly.GetManifestResourceStream(basePath + "pdms-saleem-quranfont.ttf");
 
         //Create PdfTrueTypeFont from stream with different size. 
         PdfTrueTypeFont headerFont = new(fontStream, 30, PdfFontStyle.Regular);
@@ -60,8 +60,12 @@ public partial class MainPage
 
         //Create string format.
         PdfStringFormat format = new();
-        format.Alignment = PdfTextAlignment.Center;
+        format.Alignment = PdfTextAlignment.Left;
         format.LineAlignment = PdfVerticalAlignment.Middle;
+        format.ComplexScript = true;
+
+        PdfStringFormat stringFormat = new PdfStringFormat();
+        stringFormat.ComplexScript = true;
 
         float y = 0;
         float x = 0;
@@ -97,7 +101,7 @@ public partial class MainPage
         headerRow[0].Cells[4].Value = "Total ($)";
 
         //Add products to the grid table.
-        AddProducts("CA-1098", "AWC Logo Cap", 8.99, 2, 17.98, grid);
+        AddProducts("CA-1098", vm.SelectedAyasForTranslation.First().Text, 8.99, 2, 17.98, grid);
         AddProducts("LJ-0192", "Long-Sleeve Logo Jersey,M", 49.99, 3, 149.97, grid);
         AddProducts("So-B909-M", "Mountain Bike Socks,M", 9.50, 2, 19, grid);
         AddProducts("LJ-0192", "Long-Sleeve Logo Jersey,M", 49.99, 4, 199.96, grid);
@@ -176,7 +180,7 @@ public partial class MainPage
                 if (j == 0 || j == 2)
                     grid.Headers[i].Cells[j].Style.CellPadding = new PdfPaddings(30, 1, 1, 1);
                 //Set string format to grid header cell. 
-                grid.Headers[i].Cells[j].StringFormat = pdfStringFormat;
+                grid.Headers[i].Cells[j].StringFormat = stringFormat;
                 //Set font to the grid header cell. 
                 grid.Headers[i].Cells[j].Style.Font = arialBoldFont;
 
@@ -200,7 +204,7 @@ public partial class MainPage
                     grid.Rows[i].Cells[j].Style.CellPadding = new PdfPaddings(30, 1, 1, 1);
 
                 //Set string format to grid row cell. 
-                grid.Rows[i].Cells[j].StringFormat = pdfStringFormat;
+                grid.Rows[i].Cells[j].StringFormat = stringFormat;
                 //Set font to the grid row cell. 
                 grid.Rows[i].Cells[j].Style.Font = arialRegularFont;
             }
