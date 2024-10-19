@@ -13,6 +13,8 @@ namespace AlTanzeel;
 
 public partial class MainPage
 {
+    string TheOpeningText = "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ";
+
     private MainViewModel vm;
     public MainPage(MainViewModel vm)
     {
@@ -101,7 +103,7 @@ public partial class MainPage
         headerRow[0].Cells[4].Value = "Total ($)";
 
         //Add products to the grid table.
-        AddProducts("CA-1098", vm.SelectedAyasForTranslation.First().Text, 8.99, 2, 17.98, grid);
+        AddProducts("CA-1098", TheOpeningText, 8.99, 2, 17.98, grid);
         AddProducts("LJ-0192", "Long-Sleeve Logo Jersey,M", 49.99, 3, 149.97, grid);
         AddProducts("So-B909-M", "Mountain Bike Socks,M", 9.50, 2, 19, grid);
         AddProducts("LJ-0192", "Long-Sleeve Logo Jersey,M", 49.99, 4, 199.96, grid);
