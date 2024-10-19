@@ -19,10 +19,11 @@
                    Placeholder="Search Aya..." 
                    Text="{Binding SearchQuery}"
                    x:Name="searchBar"/>
-        <CollectionView Grid.Row="1"
-            ItemsSource="{Binding FilteredAyasOfSelectedSurah}"
+        <CollectionView 
+            Grid.Row="1"
+            x:Name="collectionView"
             Scrolled="CollectionView_Scrolled"
-            SelectionMode="Multiple"
+            SelectionMode="None"
             >
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Aya">

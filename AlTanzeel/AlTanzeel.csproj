@@ -74,6 +74,9 @@
 	  <MauiXaml Update="Pages\SelectTranslationVersesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Pages\SelectWordsMeaningsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Pages\VersesForSelectedSurahPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

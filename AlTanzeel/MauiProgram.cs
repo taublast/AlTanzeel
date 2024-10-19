@@ -26,6 +26,7 @@ namespace AlTanzeel
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddSingleton<SelectTranslationVersesPage>();
             builder.Services.AddSingleton<VersesForSelectedSurahPage>();
+            builder.Services.AddSingleton<SelectWordsMeaningsPage>();
             return builder.Build();
         }
     }

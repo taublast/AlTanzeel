@@ -15,6 +15,9 @@ namespace AlTanzeel.ViewModel
         SearchQueryType searchQueryMode;
 
         [ObservableProperty]
+        TranslationVersesDataSetType translationVersesDataSetType;
+
+        [ObservableProperty]
         string searchQuery;
 
         [ObservableProperty]
@@ -30,10 +33,19 @@ namespace AlTanzeel.ViewModel
         ObservableCollection<Aya> ayasOfSelectedSurah;
 
         [ObservableProperty]
-        ObservableCollection<Aya> filteredAyasOfSelectedSurah;
+        ObservableCollection<Aya> filteredAyasOfSelectedSurahForTranslation;
 
         [ObservableProperty]
-        ObservableCollection<Aya> selectedAyas;
+        ObservableCollection<Aya> filteredAyasOfSelectedSurahForWordsMeaning;
+
+        [ObservableProperty]
+        ObservableCollection<Aya> selectedAyasForTranslation;
+
+        [ObservableProperty]
+        ObservableCollection<Aya> selectedAyasForWordsMeanings;
+
+        [ObservableProperty]
+        ObservableCollection<WordForWordsMeaning> wordsForWordsMeaning;
 
         public MainViewModel()
         {
@@ -41,12 +53,16 @@ namespace AlTanzeel.ViewModel
             FilteredSuras = [];
             SelectedSura = new();
             SearchQueryMode = SearchQueryType.Surah;
+            translationVersesDataSetType = TranslationVersesDataSetType.Verse;
             Date = DateTime.Now;
             LoadAndDisplayQuranAsync();
             SearchQuery = string.Empty;
             AyasOfSelectedSurah = [];
-            FilteredAyasOfSelectedSurah = [];
-            SelectedAyas = [];
+            FilteredAyasOfSelectedSurahForTranslation = [];
+            FilteredAyasOfSelectedSurahForWordsMeaning = [];
+            SelectedAyasForTranslation = [];
+            SelectedAyasForWordsMeanings = [];
+            WordsForWordsMeaning = [];
         }
 
         private async void LoadAndDisplayQuranAsync()
@@ -61,7 +77,16 @@ namespace AlTanzeel.ViewModel
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
             AyasOfSelectedSurah = new ObservableCollection<Aya>(SelectedSura.Ayas);
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
-            FilteredAyasOfSelectedSurah = new ObservableCollection<Aya>(SelectedSura.Ayas);
+            FilteredAyasOfSelectedSurahForTranslation = new ObservableCollection<Aya>(SelectedSura.Ayas);
+            FilteredAyasOfSelectedSurahForWordsMeaning = new ObservableCollection<Aya>(
+                SelectedSura.Ayas.Select(aya => new Aya
+                {
+                    Index = aya.Index,
+                    Text = aya.Text,
+                    Bismillah = aya.Bismillah,
+                    IsSelected = false
+                }).ToList()
+            );
         }
 
         [RelayCommand]
@@ -70,18 +95,58 @@ namespace AlTanzeel.ViewModel
             // Toggle the IsSelected property of the Aya
             aya.IsSelected = !aya.IsSelected;
 
-            // Update the list of selected Ayas
-            if (aya.IsSelected)
+            if (TranslationVersesDataSetType == TranslationVersesDataSetType.Verse)
             {
-                if (!SelectedAyas.Contains(aya))
-                    SelectedAyas.Add(aya);
+                // Update the list of selected Ayas
+                if (aya.IsSelected)
+                {
+                    if (!SelectedAyasForTranslation.Contains(aya))
+                        SelectedAyasForTranslation.Add(aya);
+                }
+                else
+                {
+                    _ = SelectedAyasForTranslation.Remove(aya);
+                }
             }
             else
             {
-                _ = SelectedAyas.Remove(aya);
+                // Update the list of selected Ayas
+                if (aya.IsSelected)
+                {
+                    if (!SelectedAyasForWordsMeanings.Contains(aya))
+                        SelectedAyasForWordsMeanings.Add(aya);
+                }
+                else
+                {
+                    _ = SelectedAyasForWordsMeanings.Remove(aya);
+                }
+                WordsForWordsMeaning = new ObservableCollection<WordForWordsMeaning>(
+                    SelectedAyasForWordsMeanings
+                        .SelectMany(aya => aya.Text.Split(' '))
+                        .Where(word => !string.IsNullOrWhiteSpace(word) && !IsOnlyDiacritic(word)) // Exclude words that are only diacritical marks
+                        .Distinct()
+                        .Select((word, index) => new WordForWordsMeaning
+                        {
+                            Id = index,
+                            Word = word,
+                            IsSelected = false
+                        })
+                );
             }
         }
 
+        // Helper method to check if a word consists entirely of diacritical marks
+        private bool IsOnlyDiacritic(string word)
+        {
+            // If every character in the word is a diacritical mark, we return true, otherwise false.
+            return word.All(c =>
+                (c >= '\u0610' && c <= '\u061A') ||  // Arabic Extended-A
+                (c >= '\u064B' && c <= '\u065F') ||  // Arabic diacritics
+                (c >= '\u06D6' && c <= '\u06DC') ||  // Arabic small high ligatures
+                (c >= '\u06DF' && c <= '\u06E8') ||  // More Arabic small high letters
+                (c >= '\u06EA' && c <= '\u06ED') ||  // More ligatures
+                (c >= '\u08D4' && c <= '\u08E1'));   // Quranic annotations
+        }
         [RelayCommand]
         async Task NavigateToSelectSuraPage()
         {
@@ -92,11 +157,19 @@ namespace AlTanzeel.ViewModel
         [RelayCommand]
         async Task NavigateToSelectTranslationVersesPage()
         {
+            TranslationVersesDataSetType = TranslationVersesDataSetType.Verse;
             await AppShell.Current.GoToAsync($"{nameof(SelectTranslationVersesPage)}");
         }
 
         [RelayCommand]
-        async Task NavigateToSelectVersesForTranslationPage()
+        async Task NavigateToSelectWordsMeaningsPage()
+        {
+            TranslationVersesDataSetType = TranslationVersesDataSetType.WordsMeanings;
+            await AppShell.Current.GoToAsync($"{nameof(SelectWordsMeaningsPage)}");
+        }
+
+        [RelayCommand]
+        async Task NavigateToSelectVerses()
         {
             this.SearchQueryMode = SearchQueryType.Aya;
             await AppShell.Current.GoToAsync($"{nameof(VersesForSelectedSurahPage)}");
@@ -108,9 +181,16 @@ namespace AlTanzeel.ViewModel
             this.SelectedSura = surah;
             this.SearchQuery = string.Empty;
             AyasOfSelectedSurah = new ObservableCollection<Aya>(SelectedSura.Ayas);
-            FilteredAyasOfSelectedSurah = new ObservableCollection<Aya>(SelectedSura.Ayas);
+            FilteredAyasOfSelectedSurahForTranslation = new ObservableCollection<Aya>(SelectedSura.Ayas);
+            FilteredAyasOfSelectedSurahForWordsMeaning = new ObservableCollection<Aya>(SelectedSura.Ayas);
             await Shell.Current.GoToAsync("..");
 
+        }
+
+        [RelayCommand]
+        void SelectWord(WordForWordsMeaning word)
+        {
+            word.IsSelected = !word.IsSelected;
         }
 
         partial void OnSearchQueryChanged(string value)
@@ -119,21 +199,21 @@ namespace AlTanzeel.ViewModel
             {
                 FilterSurahs();
             }
-            else if(SearchQueryMode == SearchQueryType.Aya)
+            else if (SearchQueryMode == SearchQueryType.Aya)
             {
                 FilterAyas();
             }
         }
         private void FilterAyas()
         {
-            if(string.IsNullOrWhiteSpace(SearchQuery))
+            if (string.IsNullOrWhiteSpace(SearchQuery))
             {
-                FilteredAyasOfSelectedSurah = new ObservableCollection<Aya>(SelectedSura.Ayas);
+                FilteredAyasOfSelectedSurahForTranslation = new ObservableCollection<Aya>(SelectedSura.Ayas);
             }
             else
             {
                 var filtered = SelectedSura.Ayas.Where(a => a.AyaWithIndex.Contains(SearchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
-                FilteredAyasOfSelectedSurah = new ObservableCollection<Aya>(filtered);
+                FilteredAyasOfSelectedSurahForTranslation = new ObservableCollection<Aya>(filtered);
             }
         }
         private void FilterSurahs()

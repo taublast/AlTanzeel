@@ -9,7 +9,7 @@
     <Grid RowDefinitions="Auto, *" Padding="10">
         <Frame Margin="0,0,0, 40">
             <Frame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToSelectVersesForTranslationPageCommand}"/>
+                <TapGestureRecognizer Command="{Binding NavigateToSelectVersesCommand}"/>
             </Frame.GestureRecognizers>
             <Label 
                 x:Name="selectVersesLabel"
@@ -17,9 +17,12 @@
         </Frame>
         <CollectionView 
             Grid.Row="1"
-            ItemsSource="{Binding SelectedAyas}"
+            ItemsSource="{Binding SelectedAyasForTranslation}"
             SelectionMode="None"
             >
+            <CollectionView.Header>
+                <Label x:Name="collectionViewHeaderText" />
+            </CollectionView.Header>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Aya">
                     <Frame Padding="10" Margin="5">

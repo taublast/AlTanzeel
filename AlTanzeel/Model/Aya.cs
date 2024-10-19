@@ -37,4 +37,23 @@ namespace QuranParser
         Surah,
         Aya
     }
+    public enum TranslationVersesDataSetType
+    {
+        Verse,
+        WordsMeanings
+    }
+
+    public partial class WordForWordsMeaning : ObservableObject
+    {
+        public WordForWordsMeaning()
+        {
+            this.IsSelected = false;
+        }
+
+        public double Id { get; set; }
+        public string Word { get; set; }
+
+        [ObservableProperty]
+        public bool isSelected;
+    }
 }

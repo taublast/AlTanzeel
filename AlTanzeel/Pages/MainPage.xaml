@@ -66,6 +66,9 @@
 
         <!-- Frame to select words meanings -->
         <Frame Grid.Row="3">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding NavigateToSelectWordsMeaningsPageCommand}"/>
+            </Frame.GestureRecognizers>
             <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="*" RowSpacing="10">
                 <!-- The first label is in row 0 -->
                 <Label Text="Select words meaning." Grid.Row="0" />
