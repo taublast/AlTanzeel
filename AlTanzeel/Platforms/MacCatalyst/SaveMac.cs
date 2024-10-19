@@ -5,11 +5,11 @@ using System.IO;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace MacServices
+namespace CreatePdfDemoSample.Services
 {
     public partial class SaveService
     {
-        public void SaveAndView(string filename, string contentType, MemoryStream stream)
+        public partial void SaveAndView(string filename, string contentType, MemoryStream stream)
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string filePath = Path.Combine(path, filename);
@@ -19,23 +19,43 @@ namespace MacServices
             stream.CopyTo(fileStream);
             fileStream.Flush();
             fileStream.Dispose();
-#pragma warning disable CA1416 //This call site is reachable on: 'iOS' 14.2 and later, 'maccatalyst' 14.2 and later. 'UIApplication.KeyWindow.get' is unsupported on: 'ios' 13.0 and later, 'maccatalyst' 13.0 and later.
-            //Launch the file
-            UIViewController? currentController = UIApplication.SharedApplication!.KeyWindow!.RootViewController;
-#pragma warning restore CA1416 //This call site is reachable on: 'iOS' 14.2 and later, 'maccatalyst' 14.2 and later. 'UIApplication.KeyWindow.get' is unsupported on: 'ios' 13.0 and later, 'maccatalyst' 13.0 and later.
-            while (currentController!.PresentedViewController != null)
-                currentController = currentController.PresentedViewController;
-            UIView? currentView = currentController.View;
 
-            QLPreviewController qlPreview = new();
-            QLPreviewItem item = new QLPreviewItemBundle(filename, filePath);
-            qlPreview.DataSource = new PreviewControllerDS(item);
-            currentController.PresentViewController((UIViewController)qlPreview, true, null);
+            UIWindow? window = GetKeyWindow();
+            if (window != null && window.RootViewController != null)
+            {
+                UIViewController? uiViewController = window.RootViewController;
+                if (uiViewController != null)
+                {
+                    QLPreviewController qlPreview = new();
+                    QLPreviewItem item = new QLPreviewItemBundle(filename, filePath);
+                    qlPreview.DataSource = new PreviewControllerDS(item);
+                    uiViewController.PresentViewController((UIViewController)qlPreview, true, null);
+                }
+            }
+
+        }
+        public UIWindow? GetKeyWindow()
+        {
+            foreach (var scene in UIApplication.SharedApplication.ConnectedScenes)
+            {
+                if (scene is UIWindowScene windowScene)
+                {
+                    foreach (var window in windowScene.Windows)
+                    {
+                        if (window.IsKeyWindow)
+                        {
+                            return window;
+                        }
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }
 
-public partial class QLPreviewItemFileSystem : QLPreviewItem
+public class QLPreviewItemFileSystem : QLPreviewItem
 {
     readonly string _fileName, _filePath;
 
@@ -89,7 +109,7 @@ public class QLPreviewItemBundle : QLPreviewItem
     }
 }
 
-public partial class PreviewControllerDS : QLPreviewControllerDataSource
+public class PreviewControllerDS : QLPreviewControllerDataSource
 {
     private readonly QLPreviewItem _item;
 

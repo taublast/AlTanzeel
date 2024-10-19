@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 
-namespace PdfSampleMaUI.Services
+namespace CreatePdfDemoSample.Services
 {
-    public abstract partial class SaveService
+    public partial class SaveService
     {
-            public abstract void SaveAndView(string filename, string contentType, MemoryStream stream);
+        //Method to save document as a file and view the saved document.
+        public partial void SaveAndView(string filename, string contentType, MemoryStream stream);
     }
 }
