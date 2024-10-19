@@ -7,7 +7,7 @@ namespace QuranParser
     {
         public Aya()
         {
-            this.IsSelected = false;
+            IsSelected = false;
         }
         public int Index { get; set; }
         public string Text { get; set; }
@@ -47,7 +47,7 @@ namespace QuranParser
     {
         public WordForWordsMeaning()
         {
-            this.IsSelected = false;
+            IsSelected = false;
         }
 
         public double Id { get; set; }

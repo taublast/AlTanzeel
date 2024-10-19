@@ -1,26 +1,27 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AlTanzeel.MainPage"
              xmlns:viewmodel="clr-namespace:AlTanzeel.ViewModel"
              x:DataType="viewmodel:MainViewModel">
 
-    <Grid RowDefinitions="Auto, Auto, Auto, Auto" Padding="10" RowSpacing="10">
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" Padding="10" RowSpacing="10">
 
         <!-- Define the Grid for Label and DatePicker -->
         <Frame Padding="10" BorderColor="Black">
             <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto">
 
                 <!-- Ensure both Label and DatePicker have the same vertical alignment -->
-                <Label Text="Quiz Date" 
-                   Grid.Column="0"
-                   VerticalOptions="Center" />
+                <Label Text="Quiz Date"
+                       Grid.Column="0"
+                       VerticalOptions="Center" />
 
                 <DatePicker x:Name="QuizDatePicker"
-                        Format="MMMM dd, yyyy"
-                        Date="{Binding Date}"
-                        Grid.Column="1"
-                        VerticalOptions="Center" />
+                            Format="MMMM dd, yyyy"
+                            Date="{Binding Date}"
+                            Grid.Column="1"
+                            VerticalOptions="Center" />
 
             </Grid>
         </Frame>
@@ -28,60 +29,65 @@
         <!-- Frame for Surah display -->
         <Frame Grid.Row="1">
             <Frame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToSelectSuraPageCommand}"/>
+                <TapGestureRecognizer Command="{Binding NavigateToSelectSuraPageCommand}" />
             </Frame.GestureRecognizers>
             <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*">
                 <!-- The first label is in row 0 -->
                 <Label Text="Selected Surah" Grid.Row="0" />
 
                 <!-- The second label is now in row 1 -->
-                <Label 
-                    Text="{Binding SelectedSura.SurahInfo}" 
-                    Grid.Row="1" 
-                    HorizontalTextAlignment="End" 
-                    FontSize="24" 
-                    FontFamily="PDMS-Saleem"/>
+                <Label
+                    Text="{Binding SelectedSura.SurahInfo}"
+                    Grid.Row="1"
+                    HorizontalTextAlignment="End"
+                    FontSize="24"
+                    FontFamily="PDMS-Saleem" />
             </Grid>
         </Frame>
 
         <!-- Frame to select verses for translation -->
         <Frame Grid.Row="2">
             <Frame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToSelectTranslationVersesPageCommand}"/>
+                <TapGestureRecognizer Command="{Binding NavigateToSelectTranslationVersesPageCommand}" />
             </Frame.GestureRecognizers>
             <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="*" RowSpacing="10">
                 <!-- The first label is in row 0 -->
                 <Label Text="Select verses for translation" Grid.Row="0" />
 
                 <!-- The second label is now in row 1 -->
-                <BoxView HeightRequest="2" Color="Gray" HorizontalOptions="FillAndExpand" Grid.Row="1"/>
+                <BoxView HeightRequest="2" Color="Gray" HorizontalOptions="FillAndExpand" Grid.Row="1" />
 
 
                 <!-- The third label is now in row 2 -->
                 <Label Text="Tap on the row to select verses." Grid.Row="2" />
             </Grid>
         </Frame>
-        
-        
+
 
         <!-- Frame to select words meanings -->
         <Frame Grid.Row="3">
             <Frame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToSelectWordsMeaningsPageCommand}"/>
+                <TapGestureRecognizer Command="{Binding NavigateToSelectWordsMeaningsPageCommand}" />
             </Frame.GestureRecognizers>
             <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="*" RowSpacing="10">
                 <!-- The first label is in row 0 -->
                 <Label Text="Select words meaning." Grid.Row="0" />
 
                 <!-- The second label is now in row 1 -->
-                <BoxView HeightRequest="2" Color="Gray" HorizontalOptions="FillAndExpand" Grid.Row="1"/>
+                <BoxView HeightRequest="2" Color="Gray" HorizontalOptions="FillAndExpand" Grid.Row="1" />
 
 
                 <!-- The third label is now in row 2 -->
                 <Label Text="Tap on the row to select words for words meanings." Grid.Row="2" />
             </Grid>
         </Frame>
-        
-        
+
+        <Button
+            Text="Create PDF"
+            FontAttributes="Bold"
+            Grid.Row="4"
+            Clicked="Button_OnClicked"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
     </Grid>
 </ContentPage>
