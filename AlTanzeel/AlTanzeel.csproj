@@ -95,16 +95,17 @@
     <None Remove="Resources\Pdf\AdventureWork.png" />
     <None Remove="Resources\Pdf\*.ttf" />
   </ItemGroup>
-
-  <ItemGroup>
-    <AndroidResource Include="Platforms\Android\xml\file_paths.xml" />
-  </ItemGroup>
-
+  
   <ItemGroup>
     <EmbeddedResource Include="Resources\Pdf\AdventureCycle.txt" />
     <EmbeddedResource Include="Resources\Pdf\AdventureWork.png" />
     <EmbeddedResource Include="Resources\Pdf\*.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Platforms\Android\xml\file_paths.xml" />
+  </ItemGroup>
+
+
 
   <ItemGroup>
     <Folder Include="Services\" />
