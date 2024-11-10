@@ -38,7 +38,7 @@ public partial class MainPage
         var status = await Permissions.RequestAsync<Permissions.StorageWrite>();
 
         if (status == PermissionStatus.Granted)
-            CreatePdf(1240); // A4 page for 150 DPI
+            CreatePdf((float)595.2); // A4 page for 150 DPI
         else
             // Handle the case where permission is denied
             Console.WriteLine("Permission denied to access storage.");

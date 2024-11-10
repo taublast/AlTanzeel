@@ -8,100 +8,66 @@
     Tag="ReportWrapper">
 
     <draw:SkiaShape
-        Margin="16"
-        Padding="16"
-        CornerRadius="8"
+        MinimumWidthRequest="595.2"
+        MinimumHeightRequest="841.0"
         StrokeColor="Black"
         StrokeWidth="1">
 
         <draw:SkiaLayout
-            Spacing="12"
-            Tag="ReportColumn"
-            Type="Column">
-
-            <draw:SkiaLabel
-                Tag="ReportTitle"
-                Text="This is a report sample, we will use different controls inside. We are using a localized Markdown text from app resources below:" />
+            Spacing="4"
+            HorizontalOptions="Center"
+            RowDefinitions="Auto,Auto,Auto"
+            Type="Grid">
 
             <draw:SkiaMarkdownLabel
+                FlowDirection="RightToLeft"
+                HorizontalFillRatio="Infinity"
                 Text="بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ"
                 TextColor="Black"
-                FontSize="46"
-                BackgroundColor="Beige"
-                FlowDirection="RightToLeft"
-                HorizontalOptions="FillAndExpand"
-                HorizontalTextAlignment="End"
+                FontSize="20"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
                 FontFamily="PDMS-Saleem" />
 
+            <draw:SkiaMarkdownLabel
+                Grid.Row="1"
+                HorizontalFillRatio="Infinity"
+                FlowDirection="RightToLeft"
+                Text="سلسہ وار ٹیسٹ"
+                TextColor="Black"
+                FontSize="20"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                FontFamily="DiwaniBent" />
+
             <draw:SkiaLayout
-                HorizontalOptions="Fill"
-                Type="Absolute">
+                Grid.Row="2"
+                Spacing="4"
+                HorizontalOptions="Center"
+                ColumnDefinitions="1*,1*"
+                Type="Grid">
+                <draw:SkiaMarkdownLabel
+                    Grid.Column="1"
+                    FlowDirection="RightToLeft"
+                    HorizontalFillRatio="Infinity"
+                    Text="نام طالب علم: ۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔"
+                    TextColor="Black"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
+                    FontFamily="NotoNastaliqUrdu" />
 
-                <!--  rest will take grid  -->
-                <draw:SkiaDecoratedGrid
-                    Margin="100,0,0,0"
-                    ColumnDefinitions="1*,1*,1*,1*"
-                    HorizontalOptions="Fill"
-                    RowDefinitions="30,40"
-                    Type="Grid">
+                <draw:SkiaMarkdownLabel
 
-                    <!--  header  -->
-                    <draw:SkiaLabel
-                        FontFamily="FontText"
-                        HorizontalOptions="Center"
-                        Text="WinUI"
-                        VerticalOptions="Center" />
-
-                    <draw:SkiaLabel
-                        FontFamily="FontText"
-                        HorizontalOptions="Center"
-                        Text="Android"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
-
-                    <draw:SkiaLabel
-                        HorizontalOptions="Center"
-                        Text="iOS"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
-
-                    <draw:SkiaLabel
-                        HorizontalOptions="Center"
-                        Text="MacCatalyst"
-                        TextColor="Black"
-                        VerticalOptions="Center" />
-
-                    <!--  data  -->
-                    <draw:SkiaLabel
-                        FontFamily="FontText"
-                        HorizontalOptions="Center"
-                        Text="Yes"
-                        TextColor="Green"
-                        VerticalOptions="Center" />
-
-                    <draw:SkiaLabel
-                        FontFamily="FontText"
-                        HorizontalOptions="Center"
-                        Text="Yes"
-                        TextColor="Green"
-                        VerticalOptions="Center" />
-
-                    <draw:SkiaLabel
-                        HorizontalOptions="Center"
-                        Text="Yes"
-                        TextColor="Green"
-                        VerticalOptions="Center" />
-
-                    <draw:SkiaLabel
-                        HorizontalOptions="Center"
-                        Text="Yes"
-                        TextColor="Green"
-                        VerticalOptions="Center" />
-
-                </draw:SkiaDecoratedGrid>
-
+                    HorizontalFillRatio="Infinity"
+                    FlowDirection="RightToLeft"
+                    Text="بتاریخ: ۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔"
+                    TextColor="Black"
+                    FontSize="14"
+                    HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
+                    FontFamily="NotoNastaliqUrdu" />
             </draw:SkiaLayout>
-
 
         </draw:SkiaLayout>
 

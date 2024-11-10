@@ -17,6 +17,8 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("pdms-saleem-quranfont.ttf", "PDMS-Saleem");
+                fonts.AddFont("diwani-bent.ttf", "DiwaniBent");
+                fonts.AddFont("NotoNastaliqUrdu-VariableFont_wght.ttf", "NotoNastaliqUrdu");
             });
 
 #if DEBUG
