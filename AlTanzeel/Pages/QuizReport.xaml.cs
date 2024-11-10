@@ -2,9 +2,9 @@ using DrawnUi.Maui.Draw;
 
 namespace AlTanzeel;
 
-public partial class ReportSample : SkiaLayout
+public partial class QuizReport : SkiaLayout
 {
-    public ReportSample()
+    public QuizReport()
     {
         InitializeComponent();
     }

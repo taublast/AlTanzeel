@@ -58,7 +58,7 @@ public partial class MainPage
         var vendor = "DrawnUI";
         var filename = GenerateFileName(DateTime.Now, "pdf");
 
-        var layout = new ReportSample
+        var layout = new QuizReport
         {
             BindingContext = this //whatever you want, you can have bindings inside your report
         };
