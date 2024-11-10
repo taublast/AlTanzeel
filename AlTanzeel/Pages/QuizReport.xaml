@@ -10,6 +10,7 @@
     <draw:SkiaShape
         MinimumWidthRequest="595.2"
         MinimumHeightRequest="841.0"
+        Padding="8,0,8,0"
         StrokeColor="Black"
         StrokeWidth="1">
 
@@ -53,8 +54,8 @@
                     Text="نام طالب علم: ۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔"
                     TextColor="Black"
                     FontSize="14"
-                    HorizontalOptions="Start"
-                    HorizontalTextAlignment="Start"
+                    HorizontalOptions="Fill"
+                    HorizontalTextAlignment="End"
                     FontFamily="NotoNastaliqUrdu" />
 
                 <draw:SkiaMarkdownLabel
