@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AlTanzeel.Pages.SelectTranslationVersesPage"
@@ -9,17 +10,15 @@
     <Grid RowDefinitions="Auto, *" Padding="10">
         <Frame Margin="0,0,0, 40">
             <Frame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding NavigateToSelectVersesCommand}"/>
+                <TapGestureRecognizer Command="{Binding NavigateToSelectVersesCommand}" />
             </Frame.GestureRecognizers>
-            <Label 
-                x:Name="selectVersesLabel"
-                Grid.Row="0"/>
+            <Label
+                x:Name="selectVersesLabel" />
         </Frame>
-        <CollectionView 
+        <CollectionView
             Grid.Row="1"
             ItemsSource="{Binding SelectedAyasForTranslation}"
-            SelectionMode="None"
-            >
+            SelectionMode="None">
             <CollectionView.Header>
                 <Label x:Name="collectionViewHeaderText" />
             </CollectionView.Header>
@@ -30,13 +29,13 @@
                               Padding="10,0,10,0">
                             <!-- Aya text -->
                             <Label Grid.Column="1"
-                                   Text="{Binding Text}" 
+                                   Text="{Binding Text}"
                                    FontSize="32"
                                    LineBreakMode="WordWrap"
                                    HorizontalOptions="EndAndExpand"
                                    HorizontalTextAlignment="End"
                                    TextTransform="None"
-                                   FontFamily="PDMS-Saleem"/>
+                                   FontFamily="PDMS-Saleem" />
                         </Grid>
                     </Frame>
                 </DataTemplate>

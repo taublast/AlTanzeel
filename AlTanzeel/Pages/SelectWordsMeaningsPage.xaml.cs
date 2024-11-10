@@ -1,23 +1,28 @@
 using AlTanzeel.ViewModel;
+using QuranParser;
+
 namespace AlTanzeel.Pages;
 
 public partial class SelectWordsMeaningsPage : ContentPage
 {
-	public SelectWordsMeaningsPage(MainViewModel vm)
-	{
-		InitializeComponent();
+    public SelectWordsMeaningsPage(MainViewModel vm)
+    {
+        InitializeComponent();
         BindingContext = vm;
     }
+
     protected override void OnAppearing()
     {
         base.OnAppearing();
         if (BindingContext is MainViewModel vm)
         {
-            selectVersesLabel.Text = vm.SelectedAyasForWordsMeanings.Count > 0 ? "Tap here to select more verses." : "Please tap here to select verses.";
+            selectVersesLabel.Text = vm.SelectedAyasForWordsMeanings.Count > 0
+                ? "Tap here to select more verses."
+                : "Please tap here to select verses.";
             if (vm.SelectedAyasForWordsMeanings.Count > 0)
             {
-                string word = vm.WordsForWordsMeaning.Count > 1 ? "words" : "word";
-                int selectedWordsCount = vm.WordsForWordsMeaning.Count(word => word.IsSelected);
+                var word = vm.WordsForWordsMeaning.Count > 1 ? "words" : "word";
+                var selectedWordsCount = vm.WordsForWordsMeaning.Count(word => word.IsSelected);
                 collectionViewHeaderText.Text = $"You have selected {selectedWordsCount} {word} for words meaning.";
             }
             else
@@ -33,7 +38,7 @@ public partial class SelectWordsMeaningsPage : ContentPage
         if (BindingContext is MainViewModel vm)
         {
             vm.SearchQuery = string.Empty;
-            vm.SearchQueryMode = QuranParser.SearchQueryType.Surah;
+            vm.SearchQueryMode = SearchQueryType.Surah;
         }
     }
 
@@ -41,11 +46,13 @@ public partial class SelectWordsMeaningsPage : ContentPage
     {
         if (BindingContext is MainViewModel vm)
         {
-            selectVersesLabel.Text = vm.SelectedAyasForWordsMeanings.Count > 0 ? "Tap here to select more verses." : "Please tap here to select verses.";
+            selectVersesLabel.Text = vm.SelectedAyasForWordsMeanings.Count > 0
+                ? "Tap here to select more verses."
+                : "Please tap here to select verses.";
             if (vm.SelectedAyasForWordsMeanings.Count > 0)
             {
-                string word = vm.WordsForWordsMeaning.Count > 1 ? "words" : "word";
-                int selectedWordsCount = vm.WordsForWordsMeaning.Count(word => word.IsSelected);
+                var word = vm.WordsForWordsMeaning.Count > 1 ? "words" : "word";
+                var selectedWordsCount = vm.WordsForWordsMeaning.Count(word => word.IsSelected);
                 collectionViewHeaderText.Text = $"You have selected {selectedWordsCount} {word} for words meaning";
             }
             else

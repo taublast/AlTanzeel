@@ -32,8 +32,8 @@ namespace CreatePdfDemoSample.Services
                     uiViewController.PresentViewController((UIViewController)qlPreview, true, null);
                 }
             }
-
         }
+
         public UIWindow? GetKeyWindow()
         {
             foreach (var scene in UIApplication.SharedApplication.ConnectedScenes)
@@ -67,23 +67,19 @@ public class QLPreviewItemFileSystem : QLPreviewItem
 
     public override string PreviewItemTitle
     {
-        get
-        {
-            return _fileName;
-        }
+        get { return _fileName; }
     }
+
     public override NSUrl PreviewItemUrl
     {
-        get
-        {
-            return NSUrl.FromFilename(_filePath);
-        }
+        get { return NSUrl.FromFilename(_filePath); }
     }
 }
 
 public class QLPreviewItemBundle : QLPreviewItem
 {
     readonly string _fileName, _filePath;
+
     public QLPreviewItemBundle(string fileName, string filePath)
     {
         _fileName = fileName;
@@ -92,11 +88,9 @@ public class QLPreviewItemBundle : QLPreviewItem
 
     public override string PreviewItemTitle
     {
-        get
-        {
-            return _fileName;
-        }
+        get { return _fileName; }
     }
+
     public override NSUrl PreviewItemUrl
     {
         get

@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8"?>
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="AlTanzeel.Pages.VersesForSelectedSurahPage"
@@ -9,45 +10,43 @@
              Title="">
     <ContentPage.Resources>
         <ResourceDictionary>
-            <local:BoolToSelectionConverter x:Key="BoolToSelectionConverter"/>
+            <local:BoolToSelectionConverter x:Key="BoolToSelectionConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <Grid RowDefinitions="Auto, *">
         <!-- Add SearchBar for filtering -->
         <SearchBar Grid.Row="0"
-                   Placeholder="Search Aya..." 
+                   Placeholder="Search Aya..."
                    Text="{Binding SearchQuery}"
-                   x:Name="searchBar"/>
-        <CollectionView 
+                   x:Name="searchBar" />
+        <CollectionView
             Grid.Row="1"
             x:Name="collectionView"
             Scrolled="CollectionView_Scrolled"
-            SelectionMode="None"
-            >
+            SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Aya">
                     <Frame Padding="10" Margin="5">
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=SelectAyaCommand}"        
-                                CommandParameter="{Binding .}"
-                             />
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=SelectAyaCommand}"
+                                CommandParameter="{Binding .}" />
                         </Frame.GestureRecognizers>
                         <Grid ColumnDefinitions="0.20*, *"
                               Padding="10,0,10,0">
                             <Label Text="{Binding IsSelected, Converter={StaticResource BoolToSelectionConverter}}"
                                    FontSize="32"
-                                   VerticalOptions="Center"/>
+                                   VerticalOptions="Center" />
                             <!-- Aya text -->
                             <Label Grid.Column="1"
-                                   Text="{Binding AyaWithIndex}" 
+                                   Text="{Binding AyaWithIndex}"
                                    FontSize="32"
                                    LineBreakMode="WordWrap"
                                    HorizontalOptions="EndAndExpand"
                                    HorizontalTextAlignment="End"
                                    TextTransform="None"
-                                   FontFamily="PDMS-Saleem"/>
+                                   FontFamily="PDMS-Saleem" />
                         </Grid>
                     </Frame>
                 </DataTemplate>

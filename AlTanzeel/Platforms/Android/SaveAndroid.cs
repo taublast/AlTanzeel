@@ -13,7 +13,8 @@ namespace CreatePdfDemoSample.Services
 
             if (Android.OS.Environment.IsExternalStorageEmulated)
             {
-                root = Android.App.Application.Context!.GetExternalFilesDir(Android.OS.Environment.DirectoryDownloads)!.AbsolutePath;
+                root = Android.App.Application.Context!.GetExternalFilesDir(Android.OS.Environment.DirectoryDownloads)!
+                    .AbsolutePath;
             }
             else
                 root = System.Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments);
@@ -40,12 +41,13 @@ namespace CreatePdfDemoSample.Services
             {
                 exception = e.ToString();
             }
+
             if (file.Exists())
             {
-
                 if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.N)
                 {
-                    var fileUri = AndroidX.Core.Content.FileProvider.GetUriForFile(Android.App.Application.Context, Android.App.Application.Context.PackageName + ".provider", file);
+                    var fileUri = AndroidX.Core.Content.FileProvider.GetUriForFile(Android.App.Application.Context,
+                        Android.App.Application.Context.PackageName + ".provider", file);
                     var intent = new Intent(Intent.ActionView);
                     intent.SetData(fileUri);
                     intent.AddFlags(ActivityFlags.NewTask);
@@ -61,7 +63,6 @@ namespace CreatePdfDemoSample.Services
                     intent!.AddFlags(ActivityFlags.NewTask);
                     Android.App.Application.Context.StartActivity(intent);
                 }
-
             }
         }
     }

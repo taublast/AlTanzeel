@@ -1,10 +1,9 @@
 using Foundation;
 using QuickLook;
-using System.IO;
 
 public class QLPreviewItemFileSystem : QLPreviewItem
 {
-    readonly string _fileName, _filePath;
+    private readonly string _fileName, _filePath;
 
     public QLPreviewItemFileSystem(string fileName, string filePath)
     {
@@ -12,38 +11,23 @@ public class QLPreviewItemFileSystem : QLPreviewItem
         _filePath = filePath;
     }
 
-    public override string PreviewItemTitle
-    {
-        get
-        {
-            return _fileName;
-        }
-    }
-    public override NSUrl PreviewItemUrl
-    {
-        get
-        {
-            return NSUrl.FromFilename(_filePath);
-        }
-    }
+    public override string PreviewItemTitle => _fileName;
+
+    public override NSUrl PreviewItemUrl => NSUrl.FromFilename(_filePath);
 }
 
 public class QLPreviewItemBundle : QLPreviewItem
 {
-    readonly string _fileName, _filePath;
+    private readonly string _fileName, _filePath;
+
     public QLPreviewItemBundle(string fileName, string filePath)
     {
         _fileName = fileName;
         _filePath = filePath;
     }
 
-    public override string PreviewItemTitle
-    {
-        get
-        {
-            return _fileName;
-        }
-    }
+    public override string PreviewItemTitle => _fileName;
+
     public override NSUrl PreviewItemUrl
     {
         get
@@ -55,4 +39,3 @@ public class QLPreviewItemBundle : QLPreviewItem
         }
     }
 }
-
