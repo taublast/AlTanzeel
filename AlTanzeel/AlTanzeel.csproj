@@ -98,8 +98,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="Resources\Pdf\AdventureCycle.txt"/>
-        <EmbeddedResource Include="Resources\Pdf\AdventureWork.png"/>
         <EmbeddedResource Include="Resources\Pdf\*.ttf"/>
     </ItemGroup>
     <ItemGroup>
@@ -109,10 +107,6 @@
 
     <ItemGroup>
         <Folder Include="Services\"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <MauiFont Include="Resources\Pdf\pdms-saleem-quranfont.ttf"/>
     </ItemGroup>
 
 
