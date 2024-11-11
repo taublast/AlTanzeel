@@ -17,9 +17,10 @@
         <draw:SkiaLayout
             Spacing="4"
             HorizontalOptions="Center"
-            RowDefinitions="Auto,Auto,Auto"
+            RowDefinitions="Auto,Auto,Auto, *"
             Type="Grid">
-
+            
+            <!-- Class name, بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيم, and, Masjid name -->
             <draw:SkiaLayout
                 Grid.Row="0"
                 Spacing="4"
@@ -36,7 +37,7 @@
                     HorizontalOptions="Start"
                     HorizontalTextAlignment="Start"
                     FontFamily="NotoNastaliqUrdu" />
-                
+
                 <draw:SkiaMarkdownLabel
                     Grid.Column="1"
                     FlowDirection="RightToLeft"
@@ -47,7 +48,7 @@
                     HorizontalOptions="Center"
                     HorizontalTextAlignment="Center"
                     FontFamily="PDMS-Saleem" />
-                
+
                 <draw:SkiaMarkdownLabel
                     Grid.Column="2"
                     HorizontalFillRatio="Infinity"
@@ -59,7 +60,7 @@
                     HorizontalTextAlignment="End"
                     FontFamily="NotoNastaliqUrdu" />
             </draw:SkiaLayout>
-
+            
             <draw:SkiaMarkdownLabel
                 Grid.Row="1"
                 HorizontalFillRatio="Infinity"
@@ -98,7 +99,20 @@
                     HorizontalTextAlignment="Start"
                     FontFamily="NotoNastaliqUrdu" />
             </draw:SkiaLayout>
-
+            <draw:SkiaScroll Grid.Row="3">
+                <draw:GridLayout RowDefinitions="Auto">
+                    <!-- It worked, الحمدالله , TODO: Replace it with DataTemplate -->
+                    <draw:SkiaMarkdownLabel
+                        FlowDirection="RightToLeft"
+                        HorizontalFillRatio="Infinity"
+                        Text="بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ"
+                        TextColor="Black"
+                        FontSize="20"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        FontFamily="PDMS-Saleem" />
+                </draw:GridLayout>
+            </draw:SkiaScroll>
         </draw:SkiaLayout>
 
     </draw:SkiaShape>
