@@ -20,15 +20,45 @@
             RowDefinitions="Auto,Auto,Auto"
             Type="Grid">
 
-            <draw:SkiaMarkdownLabel
-                FlowDirection="RightToLeft"
-                HorizontalFillRatio="Infinity"
-                Text="بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ"
-                TextColor="Black"
-                FontSize="20"
+            <draw:SkiaLayout
+                Grid.Row="0"
+                Spacing="4"
                 HorizontalOptions="Center"
-                HorizontalTextAlignment="Center"
-                FontFamily="PDMS-Saleem" />
+                ColumnDefinitions="1*,1*,1*"
+                Type="Grid">
+                <draw:SkiaMarkdownLabel
+                    Grid.Column="0"
+                    HorizontalFillRatio="Infinity"
+                    FlowDirection="RightToLeft"
+                    Text="امن ترجمة القرآن کلاس"
+                    TextColor="Black"
+                    FontSize="10"
+                    HorizontalOptions="Start"
+                    HorizontalTextAlignment="Start"
+                    FontFamily="NotoNastaliqUrdu" />
+                
+                <draw:SkiaMarkdownLabel
+                    Grid.Column="1"
+                    FlowDirection="RightToLeft"
+                    HorizontalFillRatio="Infinity"
+                    Text="بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ"
+                    TextColor="Black"
+                    FontSize="20"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    FontFamily="PDMS-Saleem" />
+                
+                <draw:SkiaMarkdownLabel
+                    Grid.Column="2"
+                    HorizontalFillRatio="Infinity"
+                    FlowDirection="RightToLeft"
+                    Text="امن مسجد واپڈا ٹاؤن گوجرانوالہ"
+                    TextColor="Black"
+                    FontSize="10"
+                    HorizontalOptions="End"
+                    HorizontalTextAlignment="End"
+                    FontFamily="NotoNastaliqUrdu" />
+            </draw:SkiaLayout>
 
             <draw:SkiaMarkdownLabel
                 Grid.Row="1"
@@ -59,7 +89,6 @@
                     FontFamily="NotoNastaliqUrdu" />
 
                 <draw:SkiaMarkdownLabel
-
                     HorizontalFillRatio="Infinity"
                     FlowDirection="RightToLeft"
                     Text="بتاریخ: ۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔"
