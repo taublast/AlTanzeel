@@ -49,36 +49,34 @@
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4"/>
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
 
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128"/>
+        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
         <!-- Images -->
-        <MauiImage Include="Resources\Images\*"/>
-        <MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185"/>
+        <MauiImage Include="Resources\Images\*" />
+        <MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
 
         <!-- Custom Fonts -->
-        <MauiFont Include="Resources\Fonts\*"/>
+        <MauiFont Include="Resources\Fonts\*" />
 
         <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
-        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>
+        <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Platforms\Android\xml\file_paths.xml"/>
-        <None Remove="Resources\Pdf\arial.ttf"/>
-        <None Remove="Resources\Pdf\pdms-saleem-quranfont.ttf"/>
+        <None Remove="Platforms\Android\xml\file_paths.xml" />
+        <None Remove="Resources\Pdf\arial.ttf" />
+        <None Remove="Resources\Pdf\pdms-saleem-quranfont.ttf" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="AppoMobi.Maui.DrawnUi" Version="1.2.5.1"/>
-        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2"/>
-        <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.90"/>
-        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.90"/>
-        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0"/>
-        <PackageReference Include="Syncfusion.Licensing" Version="27.1.53"/>
-        <PackageReference Include="Syncfusion.Pdf.NET" Version="27.1.53"/>
+        <PackageReference Include="AppoMobi.Maui.DrawnUi" Version="1.2.5.1" />
+        <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+        <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.93" />
+        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.93" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -100,21 +98,21 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Remove="Resources\Pdf\AdventureCycle.txt"/>
-        <None Remove="Resources\Pdf\AdventureWork.png"/>
-        <None Remove="Resources\Pdf\*.ttf"/>
+        <None Remove="Resources\Pdf\AdventureCycle.txt" />
+        <None Remove="Resources\Pdf\AdventureWork.png" />
+        <None Remove="Resources\Pdf\*.ttf" />
     </ItemGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="Resources\Pdf\*.ttf"/>
+        <EmbeddedResource Include="Resources\Pdf\*.ttf" />
     </ItemGroup>
     <ItemGroup>
-        <AndroidResource Include="Platforms\Android\xml\file_paths.xml"/>
+        <AndroidResource Include="Platforms\Android\xml\file_paths.xml" />
     </ItemGroup>
 
 
     <ItemGroup>
-        <Folder Include="Services\"/>
+        <Folder Include="Services\" />
     </ItemGroup>
 
 
@@ -126,7 +124,7 @@
 
     <ProjectExtensions>
         <VisualStudio>
-            <UserProperties XamarinHotReloadDebuggerTimeoutExceptionAlTanzeelHideInfoBar="True"/>
+            <UserProperties XamarinHotReloadDebuggerTimeoutExceptionAlTanzeelHideInfoBar="True" />
         </VisualStudio>
     </ProjectExtensions>
 
