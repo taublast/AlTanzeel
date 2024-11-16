@@ -60,7 +60,7 @@ public partial class MainPage
 
         var layout = new QuizReport
         {
-            BindingContext = this //whatever you want, you can have bindings inside your report
+            BindingContext = vm //whatever you want, you can have bindings inside your report
         };
 
         //render and share

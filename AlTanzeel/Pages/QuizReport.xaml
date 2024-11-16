@@ -5,110 +5,130 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:draw="http://schemas.appomobi.com/drawnUi/2023/draw"
+    xmlns:viewModels="clr-namespace:AlTanzeel.ViewModel"
+    xmlns:models="clr-namespace:QuranParser"
     Tag="ReportWrapper">
-        <draw:SkiaLayout>
+    <ContentPage.BindingContext>
+        <viewModels:MainViewModel />
+    </ContentPage.BindingContext>
+    <draw:SkiaLayout>
 
-            <draw:SkiaShape
-                Padding="8,0,8,0"
-                MinimumHeightRequest="841.0"
-                MinimumWidthRequest="595.2"
-                StrokeColor="Black"
-                StrokeWidth="1">
+        <draw:SkiaShape
+            Padding="8,0,8,0"
+            MinimumHeightRequest="841.0"
+            MinimumWidthRequest="595.2"
+            StrokeColor="Black"
+            StrokeWidth="1">
 
+            <draw:SkiaLayout
+                HorizontalOptions="Center"
+                RowDefinitions="Auto,Auto,Auto, *"
+                Spacing="4"
+                Type="Grid">
+
+                <!--  Class name, بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيم, and, Masjid name  -->
                 <draw:SkiaLayout
+                    Grid.Row="0"
+                    ColumnDefinitions="1*,1*,1*"
                     HorizontalOptions="Center"
-                    RowDefinitions="Auto,Auto,Auto, *"
                     Spacing="4"
                     Type="Grid">
 
-                    <!--  Class name, بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيم, and, Masjid name  -->
-                    <draw:SkiaLayout
-                        Grid.Row="0"
-                        ColumnDefinitions="1*,1*,1*"
-                        HorizontalOptions="Center"
-                        Spacing="4"
-                        Type="Grid">
-
-                        <draw:SkiaMarkdownLabel
-                            Grid.Column="0"
-                            FontFamily="NotoNastaliqUrdu"
-                            FontSize="10"
-                            HorizontalOptions="Start"
-                            HorizontalTextAlignment="Start"
-                            Text="امن ترجمة القرآن کلاس"
-                            TextColor="Black" />
-
-                        <draw:SkiaMarkdownLabel
-                            Grid.Column="1"
-                            FontFamily="PDMS-Saleem"
-                            FontSize="20"
-                            HorizontalOptions="Center"
-                            HorizontalTextAlignment="Center"
-                            Text="بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ"
-                            TextColor="Black" />
-
-                        <draw:SkiaMarkdownLabel
-                            Grid.Column="2"
-                            FontFamily="NotoNastaliqUrdu"
-                            FontSize="10"
-                            HorizontalOptions="End"
-                            HorizontalTextAlignment="End"
-                            Text="امن مسجد واپڈا ٹاؤن گوجرانوالہ"
-                            TextColor="Black" />
-                    </draw:SkiaLayout>
+                    <draw:SkiaMarkdownLabel
+                        Grid.Column="0"
+                        FontFamily="NotoNastaliqUrdu"
+                        FontSize="10"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        Text="امن ترجمة القرآن کلاس"
+                        TextColor="Black" />
 
                     <draw:SkiaMarkdownLabel
-                        Grid.Row="1"
-                        FontFamily="DiwaniBent"
+                        Grid.Column="1"
+                        FontFamily="PDMS-Saleem"
                         FontSize="20"
                         HorizontalOptions="Center"
                         HorizontalTextAlignment="Center"
-                        Text="سلسہ وار ٹیسٹ"
+                        Text="بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ"
                         TextColor="Black" />
 
-                    <draw:SkiaLayout
-                        Grid.Row="2"
-                        ColumnDefinitions="1*,1*"
-                        HorizontalOptions="Center"
-                        Spacing="4"
-                        Type="Grid">
-                        <draw:SkiaMarkdownLabel
-                            Grid.Column="1"
-                            FontFamily="NotoNastaliqUrdu"
-                            FontSize="14"
-                            HorizontalOptions="Fill"
-                            HorizontalTextAlignment="End"
-                            Text="نام طالب علم: ۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔"
-                            TextColor="Black" />
-
-                        <draw:SkiaMarkdownLabel
-                            FontFamily="NotoNastaliqUrdu"
-                            FontSize="14"
-                            HorizontalOptions="Start"
-                            HorizontalTextAlignment="Start"
-                            Text="بتاریخ: ۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔"
-                            TextColor="Black" />
-                    </draw:SkiaLayout>
-
-                    <draw:SkiaScroll Grid.Row="3">
-
-                        <draw:GridLayout RowDefinitions="Auto">
-                            <!--  It worked, الحمدالله , TODO: Replace it with DataTemplate  -->
-                            <draw:SkiaMarkdownLabel
-                                FontFamily="PDMS-Saleem"
-                                FontSize="24"
-                                HorizontalOptions="End"
-                                HorizontalTextAlignment="End"
-                                LineBreakMode="WordWrap"
-                                Text="آمَنَ الرَّسُولُ بِمَا أُنزِلَ إِلَيْهِ مِن رَّبِّهِ وَالْمُؤْمِنُونَ ۚ كُلٌّ آمَنَ بِاللَّهِ وَمَلَائِكَتِهِ وَكُتُبِهِ وَرُسُلِهِ لَا نُفَرِّقُ بَيْنَ أَحَدٍ مِّن رُّسُلِهِ ۚ وَقَالُوا سَمِعْنَا وَأَطَعْنَا ۖ غُفْرَانَكَ رَبَّنَا وَإِلَيْكَ الْمَصِيرُ"
-                                TextColor="Black"
-                                WidthRequest="575" />
-                        </draw:GridLayout>
-
-                    </draw:SkiaScroll>
+                    <draw:SkiaMarkdownLabel
+                        Grid.Column="2"
+                        FontFamily="NotoNastaliqUrdu"
+                        FontSize="10"
+                        HorizontalOptions="End"
+                        HorizontalTextAlignment="End"
+                        Text="امن مسجد واپڈا ٹاؤن گوجرانوالہ"
+                        TextColor="Black" />
                 </draw:SkiaLayout>
 
-            </draw:SkiaShape>
+                <draw:SkiaMarkdownLabel
+                    Grid.Row="1"
+                    FontFamily="DiwaniBent"
+                    FontSize="20"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="سلسہ وار ٹیسٹ"
+                    TextColor="Black" />
 
-        </draw:SkiaLayout>
+                <draw:SkiaLayout
+                    Grid.Row="2"
+                    ColumnDefinitions="1*,1*"
+                    HorizontalOptions="Center"
+                    Spacing="4"
+                    Type="Grid">
+                    <draw:SkiaMarkdownLabel
+                        Grid.Column="1"
+                        FontFamily="NotoNastaliqUrdu"
+                        FontSize="14"
+                        HorizontalOptions="Fill"
+                        HorizontalTextAlignment="End"
+                        Text="نام طالب علم: ۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔"
+                        TextColor="Black" />
+
+                    <draw:SkiaMarkdownLabel
+                        FontFamily="NotoNastaliqUrdu"
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        HorizontalTextAlignment="Start"
+                        Text="بتاریخ: ۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔"
+                        TextColor="Black" />
+                </draw:SkiaLayout>
+
+                <draw:SkiaScroll
+                    Grid.Row="3"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="Fill">
+
+                    <draw:SkiaLayout
+                        Type="Row"
+                        Spacing="8"
+                        VirtualisationInflated="100"
+                        RowDefinitions="Auto"
+                        InitializeTemplatesInBackgroundDelay="10"
+                        ItemsSource="{Binding Path=SelectedAyasForTranslation}">
+                        
+                        <draw:SkiaLayout.ItemTemplate>
+                            <DataTemplate>
+                                <draw:SkiaMarkdownLabel
+                                    x:DataType="models:Aya"
+                                    FontFamily="PDMS-Saleem"
+                                    FontSize="24"
+                                    HorizontalOptions="End"
+                                    HorizontalTextAlignment="End"
+                                    LineBreakMode="WordWrap"
+                                    Text="{Binding Path=Text}"
+                                    TextColor="Black"
+                                    WidthRequest="575" />        
+                            </DataTemplate>
+                        </draw:SkiaLayout.ItemTemplate>
+                        
+                    </draw:SkiaLayout>
+
+                </draw:SkiaScroll>
+            </draw:SkiaLayout>
+
+        </draw:SkiaShape>
+
+    </draw:SkiaLayout>
 </draw:SkiaLayout>
