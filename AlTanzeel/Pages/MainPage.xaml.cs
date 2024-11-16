@@ -20,19 +20,6 @@ public partial class MainPage
         this.vm = vm;
     }
 
-    public string BindableText
-    {
-        get => _BindableText;
-        set
-        {
-            if (_BindableText != value)
-            {
-                _BindableText = value;
-                OnPropertyChanged();
-            }
-        }
-    }
-
     private async void Button_OnClicked(object sender, EventArgs e)
     {
         var status = await Permissions.RequestAsync<Permissions.StorageWrite>();
@@ -54,7 +41,6 @@ public partial class MainPage
     private async Task CreatePdf(float width)
     {
         //setup our report to print
-        BindableText = "This text came from bindings";
         var vendor = "DrawnUI";
         var filename = GenerateFileName(DateTime.Now, "pdf");
 
