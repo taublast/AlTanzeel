@@ -3,7 +3,7 @@ using DrawnUi.Maui.Draw;
 using DrawnUi.Maui.Infrastructure;
 using SkiaSharp;
 
-namespace AlTanzeel;
+namespace AlTanzeel.Pages;
 
 public partial class MainPage
 {
@@ -44,7 +44,7 @@ public partial class MainPage
         var vendor = "DrawnUI";
         var filename = GenerateFileName(DateTime.Now, "pdf");
 
-        var layout = new QuizReport
+        var layout = new QuizReport(viewModel: vm)
         {
             BindingContext = vm //whatever you want, you can have bindings inside your report
         };

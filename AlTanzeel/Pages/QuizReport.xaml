@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <draw:SkiaLayout
-    x:Class="AlTanzeel.QuizReport"
+    x:Class="AlTanzeel.Pages.QuizReport"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:draw="http://schemas.appomobi.com/drawnUi/2023/draw"
@@ -101,13 +101,10 @@
                     VerticalOptions="Fill">
 
                     <draw:SkiaLayout
-                        Type="Row"
+                        Type="Column"
                         Spacing="8"
-                        VirtualisationInflated="100"
-                        RowDefinitions="Auto"
-                        InitializeTemplatesInBackgroundDelay="10"
                         ItemsSource="{Binding Path=SelectedAyasForTranslation}">
-                        
+
                         <draw:SkiaLayout.ItemTemplate>
                             <DataTemplate>
                                 <draw:SkiaMarkdownLabel
@@ -119,10 +116,10 @@
                                     LineBreakMode="WordWrap"
                                     Text="{Binding Path=Text}"
                                     TextColor="Black"
-                                    WidthRequest="575" />        
+                                    WidthRequest="575" />
                             </DataTemplate>
                         </draw:SkiaLayout.ItemTemplate>
-                        
+
                     </draw:SkiaLayout>
 
                 </draw:SkiaScroll>

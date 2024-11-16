@@ -4,13 +4,12 @@
     x:Class="AlTanzeel.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:AlTanzeel"
-    Shell.FlyoutBehavior="Disabled"
+    xmlns:pages="clr-namespace:AlTanzeel.Pages"
     Title="AlTanzeel">
 
     <ShellContent
         Title="Prepare Quiz"
-        ContentTemplate="{DataTemplate local:MainPage}"
+        ContentTemplate="{DataTemplate pages:MainPage}"
         Route="MainPage" />
 
 </Shell>

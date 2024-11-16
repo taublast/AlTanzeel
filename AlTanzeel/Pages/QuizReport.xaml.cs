@@ -1,12 +1,17 @@
 using AlTanzeel.ViewModel;
 using DrawnUi.Maui.Draw;
 
-namespace AlTanzeel;
+namespace AlTanzeel.Pages;
 
 public partial class QuizReport : SkiaLayout
 {
-    public QuizReport()
+    private MainViewModel ViewModel;
+
+    public QuizReport(MainViewModel viewModel)
     {
         InitializeComponent();
+        ViewModel = viewModel;
+        Console.WriteLine($"TAKASUR:: {ViewModel.SelectedSura.Name}");
+        Console.WriteLine($"TAKASUR:: {ViewModel.SelectedAyasForTranslation.Count.ToString()}");
     }
 }
