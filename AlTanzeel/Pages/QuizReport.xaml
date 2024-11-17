@@ -95,34 +95,30 @@
                         TextColor="Black" />
                 </draw:SkiaLayout>
 
-                <draw:SkiaScroll
+
+                <draw:SkiaLayout
                     Grid.Row="3"
-                    HorizontalOptions="Fill"
-                    VerticalOptions="Fill">
+                    Type="Column"
+                    Spacing="8"
+                    ItemsSource="{Binding Path=SelectedAyasForTranslation}">
 
-                    <draw:SkiaLayout
-                        Type="Column"
-                        Spacing="8"
-                        ItemsSource="{Binding Path=SelectedAyasForTranslation}">
+                    <draw:SkiaLayout.ItemTemplate>
+                        <DataTemplate>
+                            <draw:SkiaMarkdownLabel
+                                x:DataType="models:Aya"
+                                FontFamily="PDMS-Saleem"
+                                FontSize="24"
+                                HorizontalOptions="End"
+                                HorizontalTextAlignment="End"
+                                LineBreakMode="WordWrap"
+                                Text="{Binding Path=Text}"
+                                TextColor="Black"
+                                WidthRequest="575" />
+                        </DataTemplate>
+                    </draw:SkiaLayout.ItemTemplate>
 
-                        <draw:SkiaLayout.ItemTemplate>
-                            <DataTemplate>
-                                <draw:SkiaMarkdownLabel
-                                    x:DataType="models:Aya"
-                                    FontFamily="PDMS-Saleem"
-                                    FontSize="24"
-                                    HorizontalOptions="End"
-                                    HorizontalTextAlignment="End"
-                                    LineBreakMode="WordWrap"
-                                    Text="{Binding Path=Text}"
-                                    TextColor="Black"
-                                    WidthRequest="575" />
-                            </DataTemplate>
-                        </draw:SkiaLayout.ItemTemplate>
+                </draw:SkiaLayout>
 
-                    </draw:SkiaLayout>
-
-                </draw:SkiaScroll>
             </draw:SkiaLayout>
 
         </draw:SkiaShape>
