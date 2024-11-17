@@ -97,6 +97,7 @@
 
 
                 <draw:SkiaLayout
+                    x:Name="TranslationVerses"
                     Grid.Row="3"
                     Type="Column"
                     Spacing="8"
