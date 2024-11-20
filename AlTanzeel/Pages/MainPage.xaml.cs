@@ -40,16 +40,14 @@ public partial class MainPage
 
     private async Task CreatePdf(float width)
     {
-        //setup our report to print
         var vendor = "DrawnUI";
         var filename = GenerateFileName(DateTime.Now, "pdf");
 
         var layout = new QuizReport(viewModel: vm)
         {
-            BindingContext = vm //whatever you want, you can have bindings inside your report
+            BindingContext = vm
         };
 
-        //render and share
         Files.CheckPermissionsAsync(async () =>
         {
             try
@@ -57,48 +55,53 @@ public partial class MainPage
                 _lockLogs = true;
                 string fullFilename = null;
                 var subfolder = "Pdf";
-                var scale = 1; //do not change this
+                var scale = 1; // Keep scale constant
                 var destination = new SKRect(0, 0, width, float.PositiveInfinity);
+
+                // Measure the layout
                 var measured = layout.Measure(destination.Width, destination.Height, scale);
+                var totalHeight = measured.Units.Height;
+                var pageHeight = 841.89f; // A4 height in points
+                var pageCount = (int)Math.Ceiling(totalHeight / pageHeight);
 
-                //prepare DrawingRect
-                layout.Arrange(new SKRect(0, 0, layout.MeasuredSize.Pixels.Width, layout.MeasuredSize.Pixels.Height),
-                    layout.MeasuredSize.Pixels.Width, layout.MeasuredSize.Pixels.Height, scale);
-
-                var reportSize = new SKSize(measured.Units.Width, measured.Units.Height);
-
-                //we need a local file to ba saved in order to share it
                 fullFilename = Files.GetFullFilename(filename, StorageType.Cache, subfolder);
 
                 if (File.Exists(fullFilename)) File.Delete(fullFilename);
-
-                var area = new SKRect(layout.DrawingRect.Left, layout.DrawingRect.Top, reportSize.Width,
-                    reportSize.Height);
 
                 using (var ms = new MemoryStream())
                 using (var stream = new SKManagedWStream(ms))
                 {
                     using (var document = SKDocument.CreatePdf(stream, new SKDocumentPdfMetadata
-                           {
-                               Author = vendor,
-                               Producer = vendor,
-                               Subject = Title
-                           }))
                     {
-                        using (var canvas = document.BeginPage(reportSize.Width, reportSize.Height))
+                        Author = vendor,
+                        Producer = vendor,
+                        Subject = Title
+                    }))
+                    {
+                        for (int i = 0; i < pageCount; i++)
                         {
-                            var ctx = new SkiaDrawingContext
-                            {
-                                Canvas = canvas,
-                                Width = reportSize.Width,
-                                Height = reportSize.Height
-                            };
+                            var currentHeight = i * pageHeight;
+                            var nextHeight = Math.Min(totalHeight, currentHeight + pageHeight);
 
-                            //with no async stuff this is enough for most cases
-                            layout.Render(ctx, new SKRect(0, 0, reportSize.Width, reportSize.Height), scale);
+                            using (var canvas = document.BeginPage(width, pageHeight))
+                            {
+                                var ctx = new SkiaDrawingContext
+                                {
+                                    Canvas = canvas,
+                                    Width = width,
+                                    Height = pageHeight
+                                };
+
+                                // Adjust visible area for the current page
+                                var visibleArea = new SKRect(0, currentHeight, width, nextHeight);
+
+                                // Render only the visible portion
+                                layout.Render(ctx, visibleArea, scale);
+                            }
+
+                            document.EndPage();
                         }
 
-                        document.EndPage();
                         document.Close();
                     }
 
@@ -107,17 +110,13 @@ public partial class MainPage
 
                     var file = Files.OpenFile(fullFilename, StorageType.Cache, subfolder);
 
-                    // Write the bytes to the FileStream of the FileDescriptor
                     await file.Handler.WriteAsync(content, 0, content.Length);
-
-                    // Ensure all bytes are written to the underlying device
                     await file.Handler.FlushAsync();
 
                     Files.CloseFile(file, true);
                     await Task.Delay(500);
                 }
 
-                //can share the file now
                 Files.Share("PDF", new[] { fullFilename });
             }
             catch (Exception e)
@@ -130,4 +129,5 @@ public partial class MainPage
             }
         });
     }
+
 }
