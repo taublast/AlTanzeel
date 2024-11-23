@@ -5,13 +5,12 @@ namespace AlTanzeel.Pages;
 
 public partial class QuizReport : SkiaLayout
 {
-    private MainViewModel ViewModel;
+    private MainViewModel viewModel;
 
     public QuizReport(MainViewModel viewModel)
     {
         InitializeComponent();
-        ViewModel = viewModel;
-        Console.WriteLine($"TAKASUR:: {ViewModel.SelectedSura.Name}");
-        Console.WriteLine($"TAKASUR:: {ViewModel.SelectedAyasForTranslation.Count.ToString()}");
+        Console.WriteLine($"TAKASUR:: {viewModel.SelectedSura.Name}");
+        Console.WriteLine($"TAKASUR:: {viewModel.SelectedAyasForTranslation.Count.ToString()}");
     }
 }

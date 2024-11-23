@@ -14,11 +14,7 @@
     <draw:SkiaLayout>
 
         <draw:SkiaShape
-            Padding="8,0,8,0"
-            MinimumHeightRequest="841.0"
-            MinimumWidthRequest="595.2"
-            StrokeColor="Black"
-            StrokeWidth="1">
+            Padding="8,0,8,0">
 
             <draw:SkiaLayout
                 HorizontalOptions="Center"
@@ -94,7 +90,6 @@
                         Text="بتاریخ: ۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔۔"
                         TextColor="Black" />
                 </draw:SkiaLayout>
-
 
                 <draw:SkiaLayout
                     x:Name="TranslationVerses"

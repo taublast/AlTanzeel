@@ -25,7 +25,7 @@ public partial class MainPage
         var status = await Permissions.RequestAsync<Permissions.StorageWrite>();
 
         if (status == PermissionStatus.Granted)
-            CreatePdf((float)595.2); // A4 page for 150 DPI
+            CreatePdfPages(Pdf.GetPaperSizeInInches(PaperFormat.A4), 150); // A4 page for 150 DPI
         else
             // Handle the case where permission is denied
             Console.WriteLine("Permission denied to access storage.");
@@ -38,96 +38,157 @@ public partial class MainPage
         return filename;
     }
 
-    private async Task CreatePdf(float width)
+    async Task CreatePdfPages(SKSize inches, int dpi)
     {
+        //setup our report to print
+        var paper = Pdf.GetPaperSizePixels(inches, dpi);
         var vendor = "DrawnUI";
         var filename = GenerateFileName(DateTime.Now, "pdf");
 
-        var layout = new QuizReport(viewModel: vm)
+        //introduce page margins
+        var margins = 0.1f * dpi; //add margins 0.1 inches, change this as you wish
+        var pageSizeAccountMargins = new SKSize(paper.Width - margins * 2, paper.Height - margins * 2);
+
+        //====================
+        // Create our report to be printed
+        //====================
+        var content = new QuizReport(viewModel: vm)
         {
+            HorizontalOptions = LayoutOptions.Fill,
             BindingContext = vm
         };
 
-        Files.CheckPermissionsAsync(async () =>
+        //====================
+        // Create wrappers for output
+        //====================
+        var ctx = content.BindingContext;
+        SkiaScroll viewport = null; //to scroll though visible parts for each page
+        SkiaLayout wrapper = new() //need wrapper for margins, will use padding
         {
-            try
-            {
-                _lockLogs = true;
-                string fullFilename = null;
-                var subfolder = "Pdf";
-                var scale = 1; // Keep scale constant
-                var destination = new SKRect(0, 0, width, float.PositiveInfinity);
-
-                // Measure the layout
-                var measured = layout.Measure(destination.Width, destination.Height, scale);
-                var totalHeight = measured.Units.Height;
-                var pageHeight = 841.89f; // A4 height in points
-                var pageCount = (int)Math.Ceiling(totalHeight / pageHeight);
-
-                fullFilename = Files.GetFullFilename(filename, StorageType.Cache, subfolder);
-
-                if (File.Exists(fullFilename)) File.Delete(fullFilename);
-
-                using (var ms = new MemoryStream())
-                using (var stream = new SKManagedWStream(ms))
+            //Background = Colors.Red, //debug margins
+            BindingContext = ctx,
+            Padding = new(margins),
+            VerticalOptions = LayoutOptions.Fill,
+            HorizontalOptions = LayoutOptions.Fill,
+            Children = new List<SkiaControl>()
                 {
-                    using (var document = SKDocument.CreatePdf(stream, new SKDocumentPdfMetadata
+                    new SkiaScroll()
                     {
-                        Author = vendor,
-                        Producer = vendor,
-                        Subject = Title
-                    }))
+                        Tag = "PdfScroll",
+                        BackgroundColor = Colors.White,
+                        VerticalOptions = LayoutOptions.Fill,
+                        HorizontalOptions = LayoutOptions.Fill,
+                        Content = content,
+                    }.With((c) =>
                     {
-                        for (int i = 0; i < pageCount; i++)
-                        {
-                            var currentHeight = i * pageHeight;
-                            var nextHeight = Math.Min(totalHeight, currentHeight + pageHeight);
+                        viewport = c;
+                    })},
+        };
 
-                            using (var canvas = document.BeginPage(width, pageHeight))
-                            {
-                                var ctx = new SkiaDrawingContext
-                                {
-                                    Canvas = canvas,
-                                    Width = width,
-                                    Height = pageHeight
-                                };
+        //====================
+        // Render and share
+        //====================
+        Files.CheckPermissionsAsync(async () =>
+         {
 
-                                // Adjust visible area for the current page
-                                var visibleArea = new SKRect(0, currentHeight, width, nextHeight);
+             //in this example we will split a large content into pages
+             //when we do not for on a single page format
+             try
+             {
+                 _lockLogs = true;
+                 string fullFilename = null;
+                 var subfolder = "Pdf";
 
-                                // Render only the visible portion
-                                layout.Render(ctx, visibleArea, scale);
-                            }
+                 //====================
+                 //STEP 1: Measure content
+                 //====================
+                 var scale = 1; //do not change this
 
-                            document.EndPage();
-                        }
+                 wrapper.Measure(paper.Width, paper.Height, scale);
+                 wrapper.Arrange(new SKRect(0, 0, paper.Width, paper.Height),
+                     wrapper.MeasuredSize.Pixels.Width, wrapper.MeasuredSize.Pixels.Height, scale);
 
-                        document.Close();
-                    }
+                 var contentSize = new SKSize(content.MeasuredSize.Units.Width, content.MeasuredSize.Units.Height);
 
-                    ms.Position = 0;
-                    var content = ms.ToArray();
+                 //====================
+                 //STEP 2: Render pages
+                 //====================
+                 var pages = Pdf.SplitToPages(contentSize, pageSizeAccountMargins);
 
-                    var file = Files.OpenFile(fullFilename, StorageType.Cache, subfolder);
+                 //we need a local file to ba saved in order to share it
+                 fullFilename = Files.GetFullFilename(filename, StorageType.Cache, subfolder);
 
-                    await file.Handler.WriteAsync(content, 0, content.Length);
-                    await file.Handler.FlushAsync();
+                 if (File.Exists(fullFilename))
+                 {
+                     File.Delete(fullFilename);
+                 }
 
-                    Files.CloseFile(file, true);
-                    await Task.Delay(500);
-                }
+                 using (var ms = new MemoryStream())
+                 using (var stream = new SKManagedWStream(ms))
+                 {
+                     using (var document = SKDocument.CreatePdf(stream, new SKDocumentPdfMetadata
+                     {
+                         Author = vendor,
+                         Producer = vendor,
+                         Subject = this.Title
+                     }))
+                     {
+                         foreach (PdfPagePosition page in pages)
+                         {
+                             viewport.ViewportOffsetY = -page.Position.Y;
 
-                Files.Share("PDF", new[] { fullFilename });
-            }
-            catch (Exception e)
-            {
-                Super.Log(e);
-            }
-            finally
-            {
-                _lockLogs = false;
-            }
-        });
+                             using (var canvas = document.BeginPage(paper.Width, paper.Height))
+                             {
+                                 var ctx = new SkiaDrawingContext()
+                                 {
+                                     Canvas = canvas,
+                                     Width = paper.Width,
+                                     Height = paper.Height
+                                 };
+
+                                 //first rendering to launch loading images and first layout
+                                 wrapper.Render(ctx, new SKRect(0, 0, paper.Width, paper.Height), scale);
+
+                                 //in our specific case we have images inside that load async,
+                                 //so wait for them and render final result
+                                 
+                                 //second rendering required to reflect layout changes and async images are loaded
+                                 canvas.Clear(SKColors.White); //non-transparent reserves space inside pdf
+                                 wrapper.Render(ctx, new SKRect(0, 0, paper.Width, paper.Height), scale);
+                             }
+                             document.EndPage();
+                         }
+
+                         document.Close();
+                     }
+
+                     ms.Position = 0;
+                     var bytes = ms.ToArray();
+
+                     var file = Files.OpenFile(fullFilename, StorageType.Cache, subfolder);
+
+                     // Write the bytes to the FileStream of the FileDescriptor
+                     await file.Handler.WriteAsync(bytes, 0, bytes.Length);
+
+                     // Ensure all bytes are written to the underlying device
+                     await file.Handler.FlushAsync();
+
+                     Files.CloseFile(file, true);
+                     await Task.Delay(500); //we need this for slow file system
+                 }
+                 
+                 Console.WriteLine($"TAKASUR:: {fullFilename}");
+                 //can share the file now
+                 Files.Share("PDF", new string[] { fullFilename });
+             }
+             catch (Exception e)
+             {
+                 Super.Log(e);
+             }
+             finally
+             {
+                 _lockLogs = false;
+             }
+         });
     }
-
 }
