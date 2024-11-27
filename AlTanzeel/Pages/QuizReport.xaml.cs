@@ -7,6 +7,11 @@ public partial class QuizReport : SkiaLayout
 {
     private MainViewModel viewModel;
 
+    public QuizReport()
+    {
+        InitializeComponent();
+    }
+
     public QuizReport(MainViewModel viewModel)
     {
         InitializeComponent();
